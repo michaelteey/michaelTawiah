@@ -37,6 +37,12 @@ import Layout from '../layouts/Layout.astro';
             clients trust me to invest their money in ads the optimal way — giving them
             the best chance of success from their advertising efforts.
           </p>
+          <p>
+            i also now run <a href="https://automatedads.co" class="inline-link">automatedAds</a> —
+            a platform that bundles everything i've learned into tooling for media
+            buyers: live campaign trends, cpa scoring, creative breakdowns and
+            one-click execution across channels.
+          </p>
           <p class="muted">
             6+ years in the field. former head of paid digital. now available on a
             monthly basis — stay, or leave, at any time.
@@ -44,6 +50,7 @@ import Layout from '../layouts/Layout.astro';
         </div>
         <aside class="about-meta">
           <div class="meta-row"><span class="meta-k">role</span><span class="meta-v">performance marketer</span></div>
+          <div class="meta-row"><span class="meta-k">platform</span><span class="meta-v">automatedAds</span></div>
           <div class="meta-row"><span class="meta-k">also</span><span class="meta-v">dj</span></div>
           <div class="meta-row"><span class="meta-k">company</span><span class="meta-v">mk innovations ltd</span></div>
           <div class="meta-row"><span class="meta-k">reg</span><span class="meta-v">12571567</span></div>
@@ -131,25 +138,36 @@ import Layout from '../layouts/Layout.astro';
 
     <section class="section cta-section">
       <div class="cta-grid">
-        <article class="cta-card">
-          <div class="cta-label">start here</div>
+        <article class="cta-card cta-card-alt">
+          <div class="cta-label cta-label-alt">start here</div>
           <div class="cta-kicker">marketing</div>
           <h3 class="cta-title">i need a<br />performance marketer</h3>
           <p class="cta-body">
             full-funnel paid media across meta, google, tiktok and more. campaign
             strategy, creative direction, measurement — end to end.
           </p>
-          <a href="mailto:hello@michaeltawiah.com" class="cta-btn cta-btn-outline">book a free 30-min chat</a>
+          <a href="mailto:hello@michaeltawiah.com" class="cta-btn cta-btn-solid">book a free 30-min chat</a>
         </article>
-        <article class="cta-card cta-card-alt">
-          <div class="cta-label cta-label-alt">after hours</div>
+        <article class="cta-card">
+          <div class="cta-label">platform</div>
+          <div class="cta-kicker">automatedAds</div>
+          <h3 class="cta-title">i want<br />self-serve tooling</h3>
+          <p class="cta-body">
+            connect your meta ad account for free access to campaign trends,
+            creative performance and breakdowns. bespoke tier adds cpa scoring,
+            ad launching and consulting.
+          </p>
+          <a href="https://automatedads.co" class="cta-btn cta-btn-outline">go to automatedAds</a>
+        </article>
+        <article class="cta-card">
+          <div class="cta-label">after hours</div>
           <div class="cta-kicker">dj</div>
           <h3 class="cta-title">i need a<br />dj</h3>
           <p class="cta-body">
             house, afro, garage, and everything adjacent. private events, clubs,
             brand activations. london-based, travelling welcome.
           </p>
-          <a href="mailto:hello@michaeltawiah.com" class="cta-btn cta-btn-solid">book a set</a>
+          <a href="mailto:hello@michaeltawiah.com" class="cta-btn cta-btn-outline">book a set</a>
         </article>
       </div>
     </section>
@@ -313,7 +331,16 @@ import Layout from '../layouts/Layout.astro';
   .about-text p {
     color: #b8b8b8;
     margin: 0 0 1rem;
-    max-width: 48ch;
+    max-width: 52ch;
+  }
+  .inline-link {
+    color: var(--accent);
+    border-bottom: 1px solid var(--accent-dim);
+    transition: border-color 0.2s ease;
+  }
+  .inline-link:hover {
+    border-bottom-color: var(--accent);
+    color: var(--accent);
   }
   .about-meta {
     border: 1px solid var(--border);
@@ -459,7 +486,7 @@ import Layout from '../layouts/Layout.astro';
   }
   .cta-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(3, 1fr);
     gap: 1.5rem;
   }
   .cta-card {
@@ -555,6 +582,9 @@ import Layout from '../layouts/Layout.astro';
   }
 
   /* ---------- responsive ---------- */
+  @media (max-width: 1020px) {
+    .cta-grid { grid-template-columns: 1fr 1fr; }
+  }
   @media (max-width: 860px) {
     .nav-inner { padding: 1rem 1.25rem; }
     .nav-links { gap: 1.25rem; }
@@ -562,7 +592,7 @@ import Layout from '../layouts/Layout.astro';
     .about-grid { grid-template-columns: 1fr; gap: 2rem; }
     .cards { grid-template-columns: 1fr; }
     .skill-row { grid-template-columns: 1fr; gap: 0.5rem; }
-    .cta-grid { grid-template-columns: 1fr; }
+    .cta-grid { grid-template-columns: 1fr; gap: 1.25rem; }
     .footer-inner { flex-direction: column; gap: 0.5rem; text-align: center; }
   }
   @media (max-width: 520px) {
