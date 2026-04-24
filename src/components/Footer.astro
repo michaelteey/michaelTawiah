@@ -1,0 +1,55 @@
+---
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="footer-inner">
+    <span>© {year} mk innovations ltd — no. 12571567</span>
+    <div class="footer-socials">
+      <a
+        href="https://www.linkedin.com/in/michael-tawiah-796255132/"
+        class="footer-link"
+        target="_blank"
+        rel="noopener noreferrer"
+      >linkedin ↗</a>
+      <a
+        href="https://www.instagram.com/michaelkofi_/"
+        class="footer-link"
+        target="_blank"
+        rel="noopener noreferrer"
+      >instagram ↗</a>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    border-top: 1px solid var(--border);
+    padding: 2rem;
+  }
+  .footer-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--dim);
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .footer-socials {
+    display: flex;
+    gap: 1.5rem;
+  }
+  .footer-link {
+    color: var(--muted);
+    transition: color 0.2s ease;
+  }
+  .footer-link:hover {
+    color: var(--accent);
+  }
+  @media (max-width: 860px) {
+    .footer-inner { flex-direction: column; gap: 0.5rem; text-align: center; }
+  }
+</style>

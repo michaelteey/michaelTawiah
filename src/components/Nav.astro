@@ -1,0 +1,94 @@
+---
+interface Props {
+  current?: 'home' | 'pricing';
+}
+const { current = 'home' } = Astro.props;
+---
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="/" class="logo">mk<span class="dot">.</span></a>
+    <div class="nav-sections">
+      <a href="/#about">about</a>
+      <a href="/#services">services</a>
+      <a href="/#fit">fit</a>
+      <a href="/pricing" class={current === 'pricing' ? 'active' : ''}>pricing</a>
+      <a href="/#skills">skills</a>
+    </div>
+    <div class="nav-socials-group">
+      <a
+        href="https://www.linkedin.com/in/michael-tawiah-796255132/"
+        class="nav-social"
+        target="_blank"
+        rel="noopener noreferrer"
+      >linkedin ↗</a>
+      <a
+        href="https://www.instagram.com/michaelkofi_/"
+        class="nav-social"
+        target="_blank"
+        rel="noopener noreferrer"
+      >instagram ↗</a>
+    </div>
+  </div>
+</nav>
+
+<style>
+  .nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 50;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+  }
+  .logo {
+    font-weight: 700;
+    color: var(--fg);
+  }
+  .logo .dot {
+    color: var(--accent);
+  }
+  .nav-sections,
+  .nav-socials-group {
+    display: flex;
+    gap: 2rem;
+    color: var(--muted);
+  }
+  .nav-socials-group {
+    gap: 1.25rem;
+  }
+  .nav-sections a,
+  .nav-socials-group a {
+    transition: color 0.2s ease;
+  }
+  .nav-sections a.active {
+    color: var(--accent);
+  }
+  .nav-social {
+    color: var(--accent);
+  }
+
+  @media (max-width: 860px) {
+    .nav-inner { padding: 1rem 1.25rem; }
+    .nav-sections { gap: 1.25rem; }
+    .nav-socials-group { gap: 1rem; }
+  }
+  @media (max-width: 520px) {
+    .nav-sections { display: none; }
+    .nav-socials-group { gap: 1rem; font-size: 0.7rem; }
+  }
+</style>

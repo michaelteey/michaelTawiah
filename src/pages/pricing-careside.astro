@@ -1,0 +1,146 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import PricingTable from '../components/PricingTable.astro';
+
+const tiers = [
+  { spend: '< £10,000',  retainer: '£1,000' },
+  { spend: '£10,000+',   retainer: '£1,800' },
+  { spend: '£20,000+',   retainer: '£2,250' },
+  { spend: '£40,000+',   retainer: '£3,960' },
+  { spend: '£60,000+',   retainer: '£5,490' },
+  { spend: '£100,000+',  retainer: '£7,020' },
+  { spend: '£200,000+',  retainer: '£10,400' },
+];
+---
+
+<Layout
+  title="pricing (careside) — michael tawiah"
+  description="careside pricing tiers."
+  noindex
+>
+  <Nav current="pricing" />
+
+  <main id="top">
+    <section class="page-hero">
+      <div class="hero-glow"></div>
+      <div class="page-label">pricing — careside</div>
+      <h1 class="page-title">£&nbsp;&nbsp;$&nbsp;&nbsp;€</h1>
+      <p class="page-tagline">i succeed when you do.</p>
+    </section>
+
+    <section class="section">
+      <p class="lead">
+        i want to ensure you succeed. so my retainer is based on your growth —
+        i only succeed when i help you do.
+      </p>
+
+      <PricingTable tiers={tiers} />
+
+      <p class="muted note">
+        p.s. the £ signs are interchangeable with the local currency you're
+        billing in.
+      </p>
+
+      <div class="cta-row">
+        <a
+          href="https://calendly.com/michaeltawiah/autoads"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="cta-btn cta-btn-solid"
+        >book a free 30-min chat</a>
+        <a href="/" class="cta-btn cta-btn-outline">← back to home</a>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  .page-hero {
+    position: relative;
+    padding: 9rem 2rem 4rem;
+    text-align: center;
+    overflow: hidden;
+  }
+  .hero-glow {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      ellipse 60% 60% at 50% 50%,
+      rgba(0, 255, 157, 0.08),
+      transparent 70%
+    );
+    pointer-events: none;
+  }
+  .page-label {
+    position: relative;
+    color: var(--accent);
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+  .page-title {
+    position: relative;
+    font-family: var(--font-mono);
+    font-size: clamp(2.5rem, 8vw, 4.5rem);
+    font-weight: 500;
+    margin: 0;
+    letter-spacing: 0.1em;
+  }
+  .page-tagline {
+    position: relative;
+    color: var(--accent);
+    margin: 1.25rem 0 0;
+    font-size: clamp(0.9rem, 2vw, 1.1rem);
+  }
+
+  .lead {
+    color: #b8b8b8;
+    font-size: 1rem;
+    max-width: 60ch;
+    margin: 0 0 2.5rem;
+    line-height: 1.7;
+  }
+  .note {
+    font-size: 0.8rem;
+    margin: 1.5rem 0 0;
+    max-width: 60ch;
+  }
+
+  .cta-row {
+    margin-top: 3rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .cta-btn {
+    display: inline-block;
+    padding: 0.85rem 1.25rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+  .cta-btn-outline {
+    border: 1px solid var(--fg);
+    color: var(--fg);
+  }
+  .cta-btn-outline:hover {
+    background: var(--fg);
+    color: #000;
+  }
+  .cta-btn-solid {
+    background: var(--accent);
+    color: #000;
+    border: 1px solid var(--accent);
+    font-weight: 500;
+  }
+  .cta-btn-solid:hover {
+    background: transparent;
+    color: var(--accent);
+  }
+</style>

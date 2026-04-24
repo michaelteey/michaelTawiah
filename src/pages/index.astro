@@ -1,35 +1,492 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
 ---
 
-<Layout title="Michael Tawiah">
-  <main>
+<Layout title="michael tawiah — performance marketer & dj">
+  <Nav current="home" />
+
+  <main id="top">
     <section class="hero">
-      <h1>Michael Tawiah</h1>
-      <p>Website coming soon.</p>
+      <div class="hero-glow"></div>
+      <h1 class="hero-title">michaelTawiah<span class="dot">.</span></h1>
+      <p class="hero-tagline">sharper insights. faster execution.</p>
+      <p class="hero-sub">performance marketer for brands spending serious budgets</p>
+      <div class="scroll-hint">scroll</div>
+    </section>
+
+    <section class="section" id="about">
+      <div class="section-label">about</div>
+      <div class="about-grid">
+        <div class="about-text">
+          <h2 class="section-title">hey — i'm mike.</h2>
+          <p>
+            i run <span class="hl">big-budget performance marketing</span> — end-to-end
+            paid across meta, tiktok and google. <span class="hl">10+ years</span>
+            doing it, having managed upwards of <span class="hl">£500k/mth</span> in
+            ad spend.
+          </p>
+          <p>
+            i look after everything that drives revenue from paid — blended cac,
+            blended roas, blended cost — then top-line budget allocation down into
+            the nitty-gritty per-campaign, per-platform optimisation. growth
+            insights, not just performance.
+          </p>
+          <p>
+            i thrive on efficiency, building automation tools and finding a
+            competitive edge. really, really granular performance marketing.
+          </p>
+          <p>
+            i also run <a href="https://www.automated-ads.com" class="inline-link">automatedAds</a> —
+            the platform i've built from a decade of learning, giving media buyers
+            live campaign trends, cpa scoring, creative breakdowns and one-click
+            execution across channels.
+          </p>
+          <p class="muted">
+            former head of paid digital. available on a monthly basis — stay, or
+            leave, at any time.
+          </p>
+        </div>
+        <aside class="about-meta">
+          <div class="meta-row"><span class="meta-k">role</span><span class="meta-v">performance marketer</span></div>
+          <div class="meta-row"><span class="meta-k">platform</span><span class="meta-v">automatedAds</span></div>
+          <div class="meta-row"><span class="meta-k">also</span><span class="meta-v">dj — <a
+            href="https://www.youtube.com/@michaelkofi"
+            class="inline-link"
+            target="_blank"
+            rel="noopener noreferrer"
+          >youtube ↗</a></span></div>
+          <div class="meta-row"><span class="meta-k">pricing</span><span class="meta-v"><a href="/pricing" class="inline-link">view tiers ↗</a></span></div>
+          <div class="meta-row"><span class="meta-k">company</span><span class="meta-v">mk innovations ltd</span></div>
+          <div class="meta-row"><span class="meta-k">reg</span><span class="meta-v">12571567</span></div>
+          <div class="meta-row"><span class="meta-k">status</span><span class="meta-v"><span class="pulse"></span>available</span></div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section" id="services">
+      <div class="section-label">what i do</div>
+      <div class="cards">
+        <article class="card">
+          <div class="card-num">01</div>
+          <h3 class="card-title">paid media<br />management</h3>
+          <p class="card-body">
+            end-to-end campaign management across meta, tiktok and google. full
+            strategy, creative direction, day-to-day optimisation — the whole
+            agency, run by one senior operator.
+          </p>
+        </article>
+        <article class="card">
+          <div class="card-num">02</div>
+          <h3 class="card-title">growth &amp;<br />measurement</h3>
+          <p class="card-body">
+            blended cac, blended roas, incrementality testing and top-line budget
+            allocation. pixel / tag implementation and the infrastructure needed
+            to trust the numbers you're spending against.
+          </p>
+        </article>
+        <article class="card">
+          <div class="card-num">03</div>
+          <h3 class="card-title">automation<br />&amp; technical</h3>
+          <p class="card-body">
+            python-powered reporting, api integrations and custom tooling.
+            competitive-edge automation that most in-house teams don't have the
+            bandwidth — or skillset — to build.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="fit">
+      <div class="section-label">the fit</div>
+      <h2 class="section-title section-title-lg">we could be a good fit if —</h2>
+      <ul class="fit-list">
+        <li>
+          <div class="fit-head"><span class="bullet"></span>you spend over £30k/mth</div>
+          <p>as a performance marketer, i need ample investment to test, optimise, and ultimately get the best results.</p>
+        </li>
+        <li>
+          <div class="fit-head"><span class="bullet"></span>you don't have a dedicated paid expert on your team</div>
+          <p>growth compounds when you trust the person spending the budget. i manage upwards of £500k/mth, with 10+ years of validation behind it.</p>
+        </li>
+        <li>
+          <div class="fit-head"><span class="bullet"></span>you want the senior expertise without the full-time cost</div>
+          <p>former head of paid digital, services from £1k/mth. monthly basis — cancel any time. leaner than a full-time hire, often sharper. <a href="/pricing" class="inline-link">see full pricing ↗</a></p>
+        </li>
+      </ul>
+    </section>
+
+    <section class="section" id="skills">
+      <div class="section-label">the stack</div>
+      <h2 class="section-title section-title-lg">everything i touch</h2>
+      <div class="skills">
+        <div class="skill-row">
+          <div class="skill-k">skills</div>
+          <div class="skill-v">digital planning · digital activation · pixel tagging / implementation · incremental measurement · insights / analysis · python · html / css · api-knowledge</div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-k">channels</div>
+          <div class="skill-v">meta (facebook, instagram) · google (search, display, youtube) · tiktok · linkedin · snapchat · pinterest · twitter</div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-k">tools</div>
+          <div class="skill-v">shopify · wordpress · python · google data studio · appsflyer · triplewhale · google analytics · google tag manager · google search console</div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-k">sectors</div>
+          <div class="skill-v">d2c / e-commerce · app installs · lead generation · b2b</div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-k">industries</div>
+          <div class="skill-v">fashion · clothing · healthcare · skincare · tech / saas · education · finance · crypto</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section cta-section">
+      <div class="cta-grid">
+        <article class="cta-card cta-card-alt">
+          <div class="cta-label cta-label-alt">start here</div>
+          <div class="cta-kicker">marketing</div>
+          <h3 class="cta-title">i need a<br />performance marketer</h3>
+          <p class="cta-body">
+            end-to-end paid across meta, tiktok and google. blended measurement,
+            budget allocation, granular optimisation — the whole agency, run by
+            one operator.
+          </p>
+          <a
+            href="https://calendly.com/michaeltawiah/autoads"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="cta-btn cta-btn-solid"
+          >book a free 30-min chat</a>
+        </article>
+        <article class="cta-card">
+          <div class="cta-label">platform</div>
+          <div class="cta-kicker">automatedAds</div>
+          <h3 class="cta-title">i want<br />self-serve tooling</h3>
+          <p class="cta-body">
+            connect your meta ad account for free access to campaign trends,
+            creative performance and breakdowns. bespoke tier adds cpa scoring,
+            ad launching and consulting.
+          </p>
+          <a href="https://www.automated-ads.com" class="cta-btn cta-btn-outline">go to automatedAds</a>
+        </article>
+        <article class="cta-card">
+          <div class="cta-label">after hours</div>
+          <div class="cta-kicker">dj</div>
+          <h3 class="cta-title">i need a<br />dj</h3>
+          <p class="cta-body">
+            house, afro, garage, and everything adjacent. private events, clubs,
+            brand activations. london-based, travelling welcome.
+          </p>
+          <a href="mailto:me@michaeltawiah.com" class="cta-btn cta-btn-outline">email me@michaeltawiah.com</a>
+        </article>
+      </div>
     </section>
   </main>
+
+  <Footer />
 </Layout>
 
 <style>
-  main {
-    min-height: 100vh;
-    display: grid;
-    place-items: center;
-    padding: 2rem;
-  }
   .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     text-align: center;
-    max-width: 40rem;
+    padding: 6rem 2rem 4rem;
+    overflow: hidden;
   }
-  h1 {
-    font-size: clamp(2.5rem, 8vw, 5rem);
-    margin: 0 0 0.5rem;
-    letter-spacing: -0.02em;
+  .hero-glow {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      ellipse 60% 45% at 50% 55%,
+      rgba(0, 255, 157, 0.08),
+      transparent 70%
+    );
+    pointer-events: none;
   }
-  p {
-    font-size: 1.125rem;
-    color: var(--muted);
+  .hero-title {
+    position: relative;
+    font-family: var(--font-mono);
+    font-size: clamp(2.5rem, 8vw, 5.5rem);
+    font-weight: 500;
     margin: 0;
+    letter-spacing: -0.02em;
+    line-height: 1;
+  }
+  .hero-title .dot {
+    color: var(--fg);
+  }
+  .hero-tagline {
+    position: relative;
+    color: var(--accent);
+    margin: 1.25rem 0 0;
+    font-size: clamp(0.9rem, 2vw, 1.1rem);
+  }
+  .hero-sub {
+    position: relative;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    font-size: 0.7rem;
+    margin: 1.5rem 0 0;
+  }
+  .scroll-hint {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--dim);
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    animation: pulse-fade 2.4s ease-in-out infinite;
+  }
+  @keyframes pulse-fade {
+    0%, 100% { opacity: 0.35; transform: translate(-50%, 0); }
+    50% { opacity: 1; transform: translate(-50%, 4px); }
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+  .about-text p {
+    color: #b8b8b8;
+    margin: 0 0 1rem;
+    max-width: 52ch;
+  }
+  .about-meta {
+    border: 1px solid var(--border);
+    background: var(--card);
+    padding: 1.5rem;
+  }
+  .meta-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.6rem 0;
+    font-size: 0.8rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .meta-row:last-child { border-bottom: none; }
+  .meta-k {
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    font-size: 0.7rem;
+  }
+  .meta-v {
+    color: var(--fg);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .pulse {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 0 0 rgba(0, 255, 157, 0.6);
+    animation: pulse-ring 1.8s ease-in-out infinite;
+    display: inline-block;
+  }
+  @keyframes pulse-ring {
+    0% { box-shadow: 0 0 0 0 rgba(0, 255, 157, 0.6); }
+    70% { box-shadow: 0 0 0 8px rgba(0, 255, 157, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(0, 255, 157, 0); }
+  }
+
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+  }
+  .card {
+    border: 1px solid var(--border);
+    background: var(--card);
+    padding: 2rem 1.75rem;
+    min-height: 240px;
+    display: flex;
+    flex-direction: column;
+    transition: border-color 0.2s ease, transform 0.2s ease;
+  }
+  .card:hover {
+    border-color: var(--accent-dim);
+    transform: translateY(-2px);
+  }
+  .card-num {
+    color: var(--accent);
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    margin-bottom: 2rem;
+  }
+  .card-title {
+    font-size: 1rem;
+    font-weight: 500;
+    margin: 0 0 1rem;
+    line-height: 1.25;
+  }
+  .card-body {
+    color: var(--muted);
+    font-size: 0.85rem;
+    margin: 0;
+  }
+
+  .fit-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 2rem;
+  }
+  .fit-head {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: var(--fg);
+    font-size: 0.95rem;
+    margin-bottom: 0.5rem;
+  }
+  .bullet {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+    flex-shrink: 0;
+  }
+  .fit-list p {
+    color: var(--muted);
+    margin: 0 0 0 1.5rem;
+    max-width: 70ch;
+    font-size: 0.85rem;
+  }
+
+  .skills {
+    display: grid;
+    gap: 1rem;
+  }
+  .skill-row {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 2rem;
+    padding: 1rem 0;
+    border-top: 1px dashed var(--border);
+    align-items: start;
+  }
+  .skill-row:first-child { border-top: none; }
+  .skill-k {
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    font-size: 0.7rem;
+    padding-top: 2px;
+  }
+  .skill-v {
+    color: #b8b8b8;
+    font-size: 0.85rem;
+    line-height: 1.75;
+  }
+
+  .cta-section {
+    border-top: 1px solid var(--border);
+  }
+  .cta-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+  .cta-card {
+    position: relative;
+    border: 1px solid var(--border);
+    background: var(--card);
+    padding: 2.5rem;
+    display: flex;
+    flex-direction: column;
+  }
+  .cta-card-alt {
+    border-color: var(--accent-dim);
+  }
+  .cta-label {
+    position: absolute;
+    top: -10px;
+    left: 2.5rem;
+    background: var(--card);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    padding: 0.25rem 0.6rem;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+  .cta-label-alt {
+    color: #000;
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+  .cta-kicker {
+    color: var(--accent);
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    margin: 0.5rem 0 1.25rem;
+  }
+  .cta-title {
+    font-size: 1.4rem;
+    font-weight: 500;
+    margin: 0 0 1rem;
+    line-height: 1.3;
+  }
+  .cta-body {
+    color: var(--muted);
+    font-size: 0.85rem;
+    margin: 0 0 2rem;
+    flex: 1;
+  }
+  .cta-btn {
+    align-self: flex-start;
+    display: inline-block;
+    padding: 0.85rem 1.25rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+  .cta-btn-outline {
+    border: 1px solid var(--fg);
+    color: var(--fg);
+  }
+  .cta-btn-outline:hover {
+    background: var(--fg);
+    color: #000;
+  }
+  .cta-btn-solid {
+    background: var(--accent);
+    color: #000;
+    border: 1px solid var(--accent);
+    font-weight: 500;
+  }
+  .cta-btn-solid:hover {
+    background: transparent;
+    color: var(--accent);
+  }
+
+  @media (max-width: 1020px) {
+    .cta-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 860px) {
+    .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .cards { grid-template-columns: 1fr; }
+    .skill-row { grid-template-columns: 1fr; gap: 0.5rem; }
+    .cta-grid { grid-template-columns: 1fr; gap: 1.25rem; }
   }
 </style>
