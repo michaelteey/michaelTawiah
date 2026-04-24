@@ -11,6 +11,12 @@ import Layout from '../layouts/Layout.astro';
         <a href="#services">services</a>
         <a href="#fit">fit</a>
         <a href="#skills">skills</a>
+        <a
+          href="https://www.linkedin.com/in/michael-tawiah-796255132/"
+          class="nav-linkedin"
+          target="_blank"
+          rel="noopener noreferrer"
+        >linkedin ↗</a>
       </div>
     </div>
   </nav>
@@ -184,7 +190,12 @@ import Layout from '../layouts/Layout.astro';
     <footer class="footer">
       <div class="footer-inner">
         <span>© {new Date().getFullYear()} mk innovations ltd — no. 12571567</span>
-        <span class="footer-right">sharper insights. faster execution.</span>
+        <a
+          href="https://www.linkedin.com/in/michael-tawiah-796255132/"
+          class="footer-link"
+          target="_blank"
+          rel="noopener noreferrer"
+        >linkedin ↗</a>
       </div>
     </footer>
   </main>
@@ -228,6 +239,9 @@ import Layout from '../layouts/Layout.astro';
   }
   .nav-links a {
     transition: color 0.2s ease;
+  }
+  .nav-linkedin {
+    color: var(--accent);
   }
 
   /* ---------- hero ---------- */
@@ -588,6 +602,13 @@ import Layout from '../layouts/Layout.astro';
     font-size: 0.7rem;
     letter-spacing: 0.1em;
     text-transform: uppercase;
+  }
+  .footer-link {
+    color: var(--muted);
+    transition: color 0.2s ease;
+  }
+  .footer-link:hover {
+    color: var(--accent);
   }
 
   /* ---------- responsive ---------- */
