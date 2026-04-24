@@ -6,11 +6,13 @@ import Layout from '../layouts/Layout.astro';
   <nav class="nav">
     <div class="nav-inner">
       <a href="#top" class="logo">mk<span class="dot">.</span></a>
-      <div class="nav-links">
+      <div class="nav-sections">
         <a href="#about">about</a>
         <a href="#services">services</a>
         <a href="#fit">fit</a>
         <a href="#skills">skills</a>
+      </div>
+      <div class="nav-socials-group">
         <a
           href="https://www.linkedin.com/in/michael-tawiah-796255132/"
           class="nav-social"
@@ -258,12 +260,17 @@ import Layout from '../layouts/Layout.astro';
   .logo .dot {
     color: var(--accent);
   }
-  .nav-links {
+  .nav-sections,
+  .nav-socials-group {
     display: flex;
     gap: 2rem;
     color: var(--muted);
   }
-  .nav-links a {
+  .nav-socials-group {
+    gap: 1.25rem;
+  }
+  .nav-sections a,
+  .nav-socials-group a {
     transition: color 0.2s ease;
   }
   .nav-social {
@@ -647,7 +654,8 @@ import Layout from '../layouts/Layout.astro';
   }
   @media (max-width: 860px) {
     .nav-inner { padding: 1rem 1.25rem; }
-    .nav-links { gap: 1.25rem; }
+    .nav-sections { gap: 1.25rem; }
+    .nav-socials-group { gap: 1rem; }
     .section { padding: 4rem 1.25rem; }
     .about-grid { grid-template-columns: 1fr; gap: 2rem; }
     .cards { grid-template-columns: 1fr; }
@@ -656,6 +664,7 @@ import Layout from '../layouts/Layout.astro';
     .footer-inner { flex-direction: column; gap: 0.5rem; text-align: center; }
   }
   @media (max-width: 520px) {
-    .nav-links { display: none; }
+    .nav-sections { display: none; }
+    .nav-socials-group { gap: 1rem; font-size: 0.7rem; }
   }
 </style>
