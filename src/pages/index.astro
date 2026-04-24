@@ -1,33 +1,11 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
 ---
 
 <Layout title="michael tawiah — performance marketer & dj">
-  <nav class="nav">
-    <div class="nav-inner">
-      <a href="#top" class="logo">mk<span class="dot">.</span></a>
-      <div class="nav-sections">
-        <a href="#about">about</a>
-        <a href="#services">services</a>
-        <a href="#fit">fit</a>
-        <a href="#skills">skills</a>
-      </div>
-      <div class="nav-socials-group">
-        <a
-          href="https://www.linkedin.com/in/michael-tawiah-796255132/"
-          class="nav-social"
-          target="_blank"
-          rel="noopener noreferrer"
-        >linkedin ↗</a>
-        <a
-          href="https://www.instagram.com/michaelkofi_/"
-          class="nav-social"
-          target="_blank"
-          rel="noopener noreferrer"
-        >instagram ↗</a>
-      </div>
-    </div>
-  </nav>
+  <Nav current="home" />
 
   <main id="top">
     <section class="hero">
@@ -79,6 +57,7 @@ import Layout from '../layouts/Layout.astro';
             target="_blank"
             rel="noopener noreferrer"
           >youtube ↗</a></span></div>
+          <div class="meta-row"><span class="meta-k">pricing</span><span class="meta-v"><a href="/pricing" class="inline-link">view tiers ↗</a></span></div>
           <div class="meta-row"><span class="meta-k">company</span><span class="meta-v">mk innovations ltd</span></div>
           <div class="meta-row"><span class="meta-k">reg</span><span class="meta-v">12571567</span></div>
           <div class="meta-row"><span class="meta-k">status</span><span class="meta-v"><span class="pulse"></span>available</span></div>
@@ -133,7 +112,7 @@ import Layout from '../layouts/Layout.astro';
         </li>
         <li>
           <div class="fit-head"><span class="bullet"></span>you want the senior expertise without the full-time cost</div>
-          <p>former head of paid digital, services from £1k/mth. monthly basis — cancel any time. leaner than a full-time hire, often sharper.</p>
+          <p>former head of paid digital, services from £1k/mth. monthly basis — cancel any time. leaner than a full-time hire, often sharper. <a href="/pricing" class="inline-link">see full pricing ↗</a></p>
         </li>
       </ul>
     </section>
@@ -206,78 +185,12 @@ import Layout from '../layouts/Layout.astro';
         </article>
       </div>
     </section>
-
-    <footer class="footer">
-      <div class="footer-inner">
-        <span>© {new Date().getFullYear()} mk innovations ltd — no. 12571567</span>
-        <div class="footer-socials">
-          <a
-            href="https://www.linkedin.com/in/michael-tawiah-796255132/"
-            class="footer-link"
-            target="_blank"
-            rel="noopener noreferrer"
-          >linkedin ↗</a>
-          <a
-            href="https://www.instagram.com/michaelkofi_/"
-            class="footer-link"
-            target="_blank"
-            rel="noopener noreferrer"
-          >instagram ↗</a>
-        </div>
-      </div>
-    </footer>
   </main>
+
+  <Footer />
 </Layout>
 
 <style>
-  /* ---------- nav ---------- */
-  .nav {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 50;
-    background: rgba(0, 0, 0, 0.7);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--border);
-  }
-  .nav-inner {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 1rem 2rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
-  }
-  .logo {
-    font-weight: 700;
-    color: var(--fg);
-  }
-  .logo .dot {
-    color: var(--accent);
-  }
-  .nav-sections,
-  .nav-socials-group {
-    display: flex;
-    gap: 2rem;
-    color: var(--muted);
-  }
-  .nav-socials-group {
-    gap: 1.25rem;
-  }
-  .nav-sections a,
-  .nav-socials-group a {
-    transition: color 0.2s ease;
-  }
-  .nav-social {
-    color: var(--accent);
-  }
-
-  /* ---------- hero ---------- */
   .hero {
     position: relative;
     min-height: 100vh;
@@ -341,43 +254,6 @@ import Layout from '../layouts/Layout.astro';
     50% { opacity: 1; transform: translate(-50%, 4px); }
   }
 
-  /* ---------- section base ---------- */
-  .section {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 6rem 2rem;
-    border-top: 1px solid var(--border);
-  }
-  .section:first-of-type {
-    border-top: none;
-  }
-  .section-label {
-    color: var(--accent);
-    font-size: 0.7rem;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    margin-bottom: 3rem;
-  }
-  .section-title {
-    font-family: var(--font-mono);
-    font-weight: 500;
-    font-size: clamp(1.25rem, 3vw, 1.75rem);
-    margin: 0 0 1.5rem;
-    letter-spacing: -0.01em;
-  }
-  .section-title-lg {
-    font-size: clamp(1.75rem, 4vw, 2.5rem);
-    margin-bottom: 3rem;
-  }
-  .muted {
-    color: var(--muted);
-  }
-  .hl {
-    color: var(--fg);
-    font-weight: 500;
-  }
-
-  /* ---------- about ---------- */
   .about-grid {
     display: grid;
     grid-template-columns: 2fr 1fr;
@@ -388,15 +264,6 @@ import Layout from '../layouts/Layout.astro';
     color: #b8b8b8;
     margin: 0 0 1rem;
     max-width: 52ch;
-  }
-  .inline-link {
-    color: var(--accent);
-    border-bottom: 1px solid var(--accent-dim);
-    transition: border-color 0.2s ease;
-  }
-  .inline-link:hover {
-    border-bottom-color: var(--accent);
-    color: var(--accent);
   }
   .about-meta {
     border: 1px solid var(--border);
@@ -439,7 +306,6 @@ import Layout from '../layouts/Layout.astro';
     100% { box-shadow: 0 0 0 0 rgba(0, 255, 157, 0); }
   }
 
-  /* ---------- services cards ---------- */
   .cards {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -476,16 +342,12 @@ import Layout from '../layouts/Layout.astro';
     margin: 0;
   }
 
-  /* ---------- fit list ---------- */
   .fit-list {
     list-style: none;
     padding: 0;
     margin: 0;
     display: grid;
     gap: 2rem;
-  }
-  .fit-list li {
-    padding-left: 0;
   }
   .fit-head {
     display: flex;
@@ -509,7 +371,6 @@ import Layout from '../layouts/Layout.astro';
     font-size: 0.85rem;
   }
 
-  /* ---------- skills ---------- */
   .skills {
     display: grid;
     gap: 1rem;
@@ -536,7 +397,6 @@ import Layout from '../layouts/Layout.astro';
     line-height: 1.75;
   }
 
-  /* ---------- cta ---------- */
   .cta-section {
     border-top: 1px solid var(--border);
   }
@@ -620,51 +480,13 @@ import Layout from '../layouts/Layout.astro';
     color: var(--accent);
   }
 
-  /* ---------- footer ---------- */
-  .footer {
-    border-top: 1px solid var(--border);
-    padding: 2rem;
-  }
-  .footer-inner {
-    max-width: 1100px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    color: var(--dim);
-    font-size: 0.7rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-  }
-  .footer-socials {
-    display: flex;
-    gap: 1.5rem;
-  }
-  .footer-link {
-    color: var(--muted);
-    transition: color 0.2s ease;
-  }
-  .footer-link:hover {
-    color: var(--accent);
-  }
-
-  /* ---------- responsive ---------- */
   @media (max-width: 1020px) {
     .cta-grid { grid-template-columns: 1fr 1fr; }
   }
   @media (max-width: 860px) {
-    .nav-inner { padding: 1rem 1.25rem; }
-    .nav-sections { gap: 1.25rem; }
-    .nav-socials-group { gap: 1rem; }
-    .section { padding: 4rem 1.25rem; }
     .about-grid { grid-template-columns: 1fr; gap: 2rem; }
     .cards { grid-template-columns: 1fr; }
     .skill-row { grid-template-columns: 1fr; gap: 0.5rem; }
     .cta-grid { grid-template-columns: 1fr; gap: 1.25rem; }
-    .footer-inner { flex-direction: column; gap: 0.5rem; text-align: center; }
-  }
-  @media (max-width: 520px) {
-    .nav-sections { display: none; }
-    .nav-socials-group { gap: 1rem; font-size: 0.7rem; }
   }
 </style>
