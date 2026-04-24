@@ -13,10 +13,16 @@ import Layout from '../layouts/Layout.astro';
         <a href="#skills">skills</a>
         <a
           href="https://www.linkedin.com/in/michael-tawiah-796255132/"
-          class="nav-linkedin"
+          class="nav-social"
           target="_blank"
           rel="noopener noreferrer"
         >linkedin ↗</a>
+        <a
+          href="https://www.instagram.com/michaelkofi_/"
+          class="nav-social"
+          target="_blank"
+          rel="noopener noreferrer"
+        >instagram ↗</a>
       </div>
     </div>
   </nav>
@@ -190,12 +196,20 @@ import Layout from '../layouts/Layout.astro';
     <footer class="footer">
       <div class="footer-inner">
         <span>© {new Date().getFullYear()} mk innovations ltd — no. 12571567</span>
-        <a
-          href="https://www.linkedin.com/in/michael-tawiah-796255132/"
-          class="footer-link"
-          target="_blank"
-          rel="noopener noreferrer"
-        >linkedin ↗</a>
+        <div class="footer-socials">
+          <a
+            href="https://www.linkedin.com/in/michael-tawiah-796255132/"
+            class="footer-link"
+            target="_blank"
+            rel="noopener noreferrer"
+          >linkedin ↗</a>
+          <a
+            href="https://www.instagram.com/michaelkofi_/"
+            class="footer-link"
+            target="_blank"
+            rel="noopener noreferrer"
+          >instagram ↗</a>
+        </div>
       </div>
     </footer>
   </main>
@@ -240,7 +254,7 @@ import Layout from '../layouts/Layout.astro';
   .nav-links a {
     transition: color 0.2s ease;
   }
-  .nav-linkedin {
+  .nav-social {
     color: var(--accent);
   }
 
@@ -602,6 +616,10 @@ import Layout from '../layouts/Layout.astro';
     font-size: 0.7rem;
     letter-spacing: 0.1em;
     text-transform: uppercase;
+  }
+  .footer-socials {
+    display: flex;
+    gap: 1.5rem;
   }
   .footer-link {
     color: var(--muted);
