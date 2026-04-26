@@ -1,6 +1,6 @@
 ---
 interface Props {
-  current?: 'home' | 'pricing';
+  current?: 'home' | 'pricing' | 'clients';
 }
 const { current = 'home' } = Astro.props;
 ---
@@ -11,7 +11,7 @@ const { current = 'home' } = Astro.props;
     <div class="nav-sections">
       <a href="/#about">about</a>
       <a href="/#services">services</a>
-      <a href="/#fit">fit</a>
+      <a href="/clients" class={current === 'clients' ? 'active' : ''}>clients</a>
       <a href="/pricing" class={current === 'pricing' ? 'active' : ''}>pricing</a>
       <a href="/#skills">skills</a>
     </div>

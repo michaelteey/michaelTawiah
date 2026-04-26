@@ -26,7 +26,7 @@ const tiers = [
     <section class="page-hero">
       <div class="hero-glow"></div>
       <div class="page-label">pricing — careside</div>
-      <h1 class="page-title">£&nbsp;&nbsp;$&nbsp;&nbsp;€</h1>
+      <h1 class="page-title">£</h1>
       <p class="page-tagline">i succeed when you do.</p>
     </section>
 
@@ -37,11 +37,6 @@ const tiers = [
       </p>
 
       <PricingTable tiers={tiers} />
-
-      <p class="muted note">
-        p.s. the £ signs are interchangeable with the local currency you're
-        billing in.
-      </p>
 
       <div class="cta-row">
         <a
@@ -105,12 +100,6 @@ const tiers = [
     margin: 0 0 2.5rem;
     line-height: 1.7;
   }
-  .note {
-    font-size: 0.8rem;
-    margin: 1.5rem 0 0;
-    max-width: 60ch;
-  }
-
   .cta-row {
     margin-top: 3rem;
     display: flex;
