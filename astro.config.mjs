@@ -2,7 +2,6 @@ import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
 
 export default defineConfig({
-  site: 'https://michaelteey.github.io',
-  base: '/michaelTawiah',
+  site: 'https://www.michaeltawiah.com',
   integrations: [react()],
 });

@@ -1,0 +1,245 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+
+const lastUpdated = '29 april 2026';
+---
+
+<Layout
+  title="privacy — michael tawiah"
+  description="how mk innovations ltd handles your data when you visit michaeltawiah.com or get in touch."
+>
+  <Nav />
+
+  <main id="top">
+    <section class="page-hero">
+      <div class="hero-glow"></div>
+      <div class="page-label">privacy</div>
+      <h1 class="page-title">privacy policy.</h1>
+      <p class="page-tagline">last updated — {lastUpdated}</p>
+    </section>
+
+    <section class="section privacy">
+      <p class="lead">
+        this policy explains what personal data mk innovations ltd ("we", "i",
+        "us") collects when you visit michaeltawiah.com, what we do with it,
+        and the rights you have over it. we keep it short and in plain english
+        so you can actually read it.
+      </p>
+
+      <article class="block">
+        <div class="block-label">01 — who we are</div>
+        <p>
+          this site is operated by <span class="hl">mk innovations ltd</span>,
+          a company registered in england &amp; wales (company no.
+          <span class="hl">12571567</span>). for any privacy question, email
+          <a href="mailto:me@michaeltawiah.com" class="inline-link">me@michaeltawiah.com</a>.
+        </p>
+        <p>
+          we are the data controller for any personal data collected through
+          this website.
+        </p>
+      </article>
+
+      <article class="block">
+        <div class="block-label">02 — what we collect</div>
+        <p>this is a static brochure site. there are no forms, accounts or trackers. the only data that touches us is:</p>
+        <ul class="list">
+          <li><span class="hl">server logs</span> — your ip address, user agent, referrer and the time you visited. created automatically by github pages, our host, in the normal course of serving the site.</li>
+          <li><span class="hl">contact data</span> — if you email <a href="mailto:me@michaeltawiah.com" class="inline-link">me@michaeltawiah.com</a> or book a call via calendly, we receive whatever you choose to send us (name, email, message, time slot).</li>
+        </ul>
+        <p>
+          we do <span class="hl">not</span> use cookies, analytics, ad pixels
+          or fingerprinting on this site.
+        </p>
+      </article>
+
+      <article class="block">
+        <div class="block-label">03 — why we use it</div>
+        <ul class="list">
+          <li>to keep the website online and secure (legitimate interests).</li>
+          <li>to reply to enquiries and arrange calls (legitimate interests / steps to enter into a contract).</li>
+          <li>where relevant, to perform a contract for performance-marketing services (contract).</li>
+        </ul>
+      </article>
+
+      <article class="block">
+        <div class="block-label">04 — third parties</div>
+        <p>we rely on a small number of processors to run the site and the business:</p>
+        <ul class="list">
+          <li><span class="hl">github pages</span> — hosting and tls termination.</li>
+          <li><span class="hl">godaddy</span> — domain registrar and dns.</li>
+          <li><span class="hl">google workspace</span> — business email for me@michaeltawiah.com.</li>
+          <li><span class="hl">calendly</span> — call scheduling. they collect the booking details you submit and process them under their own privacy policy.</li>
+          <li><span class="hl">automatedAds</span> — separate platform we operate. governed by its own privacy policy at <a href="https://www.automated-ads.com" class="inline-link" target="_blank" rel="noopener noreferrer">automated-ads.com</a>.</li>
+        </ul>
+        <p>
+          outbound links to linkedin, instagram and youtube are governed by
+          those providers' own policies once you click through.
+        </p>
+      </article>
+
+      <article class="block">
+        <div class="block-label">05 — how long we keep it</div>
+        <ul class="list">
+          <li>server logs: kept by our host for a short rolling window (typically 7–30 days).</li>
+          <li>email correspondence: kept for as long as needed for the engagement, then archived or deleted in line with normal business records.</li>
+          <li>calendly bookings: retained while the meeting is relevant; managed in calendly.</li>
+        </ul>
+      </article>
+
+      <article class="block">
+        <div class="block-label">06 — your rights</div>
+        <p>under uk gdpr you can ask us to:</p>
+        <ul class="list">
+          <li>access the personal data we hold on you,</li>
+          <li>correct it if it's wrong,</li>
+          <li>delete it ("right to be forgotten"),</li>
+          <li>restrict or object to how we use it,</li>
+          <li>port it to another provider.</li>
+        </ul>
+        <p>
+          email <a href="mailto:me@michaeltawiah.com" class="inline-link">me@michaeltawiah.com</a>
+          and we'll action requests within one calendar month. you can also
+          complain to the
+          <a href="https://ico.org.uk" class="inline-link" target="_blank" rel="noopener noreferrer">ico</a>
+          if you think we've handled your data poorly.
+        </p>
+      </article>
+
+      <article class="block">
+        <div class="block-label">07 — international transfers</div>
+        <p>
+          some of our processors (e.g. calendly, google) operate outside the
+          uk. where personal data is transferred outside the uk/eea we rely on
+          adequacy regulations or standard contractual clauses to keep it
+          protected.
+        </p>
+      </article>
+
+      <article class="block">
+        <div class="block-label">08 — changes</div>
+        <p>
+          if this policy changes we'll update the "last updated" date at the
+          top. material changes will be flagged on the homepage.
+        </p>
+      </article>
+
+      <div class="cta-row">
+        <a href="mailto:me@michaeltawiah.com" class="cta-btn cta-btn-outline">email a privacy question</a>
+        <a href="/" class="cta-btn cta-btn-outline">← back to home</a>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  .page-hero {
+    position: relative;
+    padding: 9rem 2rem 4rem;
+    text-align: center;
+    overflow: hidden;
+  }
+  .hero-glow {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      ellipse 60% 60% at 50% 50%,
+      rgba(56, 189, 248, 0.08),
+      transparent 70%
+    );
+    pointer-events: none;
+  }
+  .page-label {
+    position: relative;
+    color: var(--accent);
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+  .page-title {
+    position: relative;
+    font-family: var(--font-mono);
+    font-size: clamp(2.25rem, 7vw, 4rem);
+    font-weight: 500;
+    margin: 0;
+    letter-spacing: -0.02em;
+    line-height: 1;
+  }
+  .page-tagline {
+    position: relative;
+    color: var(--muted);
+    margin: 1.25rem 0 0;
+    font-size: 0.8rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  .privacy {
+    max-width: 760px;
+  }
+  .lead {
+    color: #b8b8b8;
+    font-size: 1rem;
+    margin: 0 0 3rem;
+    line-height: 1.7;
+  }
+  .block {
+    border-top: 1px dashed var(--border);
+    padding: 2rem 0;
+  }
+  .block:first-of-type {
+    border-top: none;
+    padding-top: 0;
+  }
+  .block-label {
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    font-size: 0.7rem;
+    margin-bottom: 1rem;
+  }
+  .block p {
+    color: #b8b8b8;
+    margin: 0 0 0.85rem;
+    font-size: 0.9rem;
+    line-height: 1.7;
+  }
+  .list {
+    color: #b8b8b8;
+    font-size: 0.9rem;
+    line-height: 1.7;
+    padding-left: 1.25rem;
+    margin: 0 0 0.85rem;
+  }
+  .list li {
+    margin-bottom: 0.4rem;
+  }
+
+  .cta-row {
+    margin-top: 3rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .cta-btn {
+    display: inline-block;
+    padding: 0.85rem 1.25rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+  .cta-btn-outline {
+    border: 1px solid var(--fg);
+    color: var(--fg);
+  }
+  .cta-btn-outline:hover {
+    background: var(--fg);
+    color: #000;
+  }
+</style>
