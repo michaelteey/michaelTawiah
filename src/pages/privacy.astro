@@ -3,7 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 
-const lastUpdated = '29 april 2026';
+const lastUpdated = '29 may 2026';
 ---
 
 <Layout
@@ -44,14 +44,15 @@ const lastUpdated = '29 april 2026';
 
       <article class="block">
         <div class="block-label">02 — what we collect</div>
-        <p>this is a static brochure site. there are no forms, accounts or trackers. the only data that touches us is:</p>
+        <p>this is a static brochure site. the only data that touches us is:</p>
         <ul class="list">
           <li><span class="hl">server logs</span> — your ip address, user agent, referrer and the time you visited. created automatically by github pages, our host, in the normal course of serving the site.</li>
+          <li><span class="hl">analytics</span> — we use <a href="https://policies.google.com/privacy" class="inline-link" target="_blank" rel="noopener noreferrer">google analytics 4</a> to understand aggregate traffic (pages viewed, country, device, referrer). ga sets cookies in your browser. ip addresses are anonymised by google before storage.</li>
           <li><span class="hl">contact data</span> — if you email <a href="mailto:me@michaeltawiah.com" class="inline-link">me@michaeltawiah.com</a> or book a call via calendly, we receive whatever you choose to send us (name, email, message, time slot).</li>
         </ul>
         <p>
-          we do <span class="hl">not</span> use cookies, analytics, ad pixels
-          or fingerprinting on this site.
+          we do <span class="hl">not</span> use ad pixels, retargeting tags or
+          fingerprinting on this site.
         </p>
       </article>
 
@@ -71,6 +72,7 @@ const lastUpdated = '29 april 2026';
           <li><span class="hl">github pages</span> — hosting and tls termination.</li>
           <li><span class="hl">godaddy</span> — domain registrar and dns.</li>
           <li><span class="hl">google workspace</span> — business email for me@michaeltawiah.com.</li>
+          <li><span class="hl">google analytics 4</span> — aggregate site analytics. measurement id <span class="hl">G-6B0YVD7ZQ8</span>. processed under <a href="https://policies.google.com/privacy" class="inline-link" target="_blank" rel="noopener noreferrer">google's privacy policy</a>.</li>
           <li><span class="hl">calendly</span> — call scheduling. they collect the booking details you submit and process them under their own privacy policy.</li>
           <li><span class="hl">automatedAds</span> — separate platform we operate. governed by its own privacy policy at <a href="https://www.automated-ads.com" class="inline-link" target="_blank" rel="noopener noreferrer">automated-ads.com</a>.</li>
         </ul>
