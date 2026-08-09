@@ -1,0 +1,147 @@
+---
+const groups = [
+  {
+    k: 'skills',
+    items: ['digital planning', 'digital activation', 'pixel tagging / implementation', 'incremental measurement', 'insights / analysis', 'python', 'html / css', 'api-knowledge'],
+  },
+  {
+    k: 'channels',
+    items: ['meta', 'facebook', 'instagram', 'google search', 'google display', 'youtube', 'tiktok', 'linkedin', 'snapchat', 'pinterest', 'twitter'],
+  },
+  {
+    k: 'tools',
+    items: ['shopify', 'wordpress', 'python', 'google data studio', 'appsflyer', 'triplewhale', 'google analytics', 'google tag manager', 'google search console'],
+  },
+  {
+    k: 'sectors',
+    items: ['d2c / e-commerce', 'app installs', 'lead generation', 'b2b'],
+  },
+  {
+    k: 'industries',
+    items: ['fashion', 'clothing', 'healthcare', 'skincare', 'tech / saas', 'education', 'finance', 'crypto'],
+  },
+];
+---
+
+<div class="stack" data-stack>
+  <div class="stack-tabs" role="tablist" aria-label="Capability areas">
+    <button class="stack-tab is-active" data-stack-tab="all" role="tab" aria-selected="true" type="button">
+      all
+    </button>
+    {groups.map((g) => (
+      <button class="stack-tab" data-stack-tab={g.k} role="tab" aria-selected="false" type="button">
+        {g.k}
+        <span class="stack-count">{g.items.length}</span>
+      </button>
+    ))}
+  </div>
+
+  <div class="stack-chips">
+    {groups.flatMap((g) =>
+      g.items.map((item) => (
+        <span class="chip" data-group={g.k}>
+          <span class="chip-dot" aria-hidden="true"></span>{item}
+        </span>
+      ))
+    )}
+  </div>
+</div>
+
+<style>
+  .stack-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 2.5rem;
+  }
+  .stack-tab {
+    font-family: var(--font-mono);
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    padding: 0.6rem 1rem;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+  }
+  .stack-tab:hover { color: var(--fg); border-color: var(--dim); }
+  .stack-tab.is-active {
+    color: #000;
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+  .stack-count {
+    font-size: 0.6rem;
+    opacity: 0.6;
+  }
+
+  .stack-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    min-height: 200px;
+    align-content: flex-start;
+  }
+  .chip {
+    border: 1px solid var(--border);
+    background: var(--card);
+    color: #cfcfcf;
+    padding: 0.55rem 0.9rem;
+    font-size: 0.8rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    transition: opacity 0.35s ease, transform 0.35s ease,
+      border-color 0.2s ease, color 0.2s ease;
+  }
+  .chip:hover {
+    border-color: var(--accent);
+    color: var(--fg);
+  }
+  .chip-dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--accent);
+    flex-shrink: 0;
+  }
+  .chip.is-dim {
+    opacity: 0.18;
+    transform: scale(0.97);
+  }
+  .chip.is-dim:hover {
+    border-color: var(--border);
+    color: #cfcfcf;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .chip { transition: none; }
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-stack]').forEach((root) => {
+    const tabs = Array.from(root.querySelectorAll<HTMLButtonElement>('[data-stack-tab]'));
+    const chips = Array.from(root.querySelectorAll<HTMLElement>('.chip'));
+
+    tabs.forEach((tab) => {
+      tab.addEventListener('click', () => {
+        const key = tab.dataset.stackTab;
+        tabs.forEach((t) => {
+          const active = t === tab;
+          t.classList.toggle('is-active', active);
+          t.setAttribute('aria-selected', String(active));
+        });
+        chips.forEach((chip) => {
+          const match = key === 'all' || chip.dataset.group === key;
+          chip.classList.toggle('is-dim', !match);
+        });
+      });
+    });
+  });
+</script>

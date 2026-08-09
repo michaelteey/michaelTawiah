@@ -1,33 +1,74 @@
 ---
 import { caseStudies } from '../data/clients';
+import HScroller from './HScroller.astro';
+
+interface Props {
+  layout?: 'grid' | 'row';
+}
+const { layout = 'grid' } = Astro.props;
 ---
 
-<div class="case-grid">
-  {caseStudies.map((cs) => (
-    <article class="case-card">
-      <div class="case-logo">
-        {cs.logo ? (
-          <img src={cs.logo} alt={`${cs.name} logo`} loading="lazy" />
-        ) : (
-          <span class={`wordmark wordmark-${cs.mark}`}>{cs.name}</span>
-        )}
-      </div>
-      <div class="case-role">{cs.role}</div>
-      <p class="case-summary">{cs.summary}</p>
-      <ul class="case-highlights">
-        {cs.highlights.map((h) => (
-          <li><span class="tick">→</span>{h}</li>
-        ))}
-      </ul>
-    </article>
-  ))}
-</div>
+{layout === 'row' ? (
+  <HScroller id="cases" label="Case studies">
+    {caseStudies.map((cs, i) => (
+      <article class="case-card case-card-slide">
+        <div class="case-index">{String(i + 1).padStart(2, '0')} / {String(caseStudies.length).padStart(2, '0')}</div>
+        <div class="case-logo">
+          {cs.logo ? (
+            <img src={cs.logo} alt={`${cs.name} logo`} loading="lazy" />
+          ) : (
+            <span class={`wordmark wordmark-${cs.mark}`}>{cs.name}</span>
+          )}
+        </div>
+        <div class="case-role">{cs.role}</div>
+        <p class="case-summary">{cs.summary}</p>
+        <ul class="case-highlights">
+          {cs.highlights.map((h) => (
+            <li><span class="tick">→</span>{h}</li>
+          ))}
+        </ul>
+      </article>
+    ))}
+  </HScroller>
+) : (
+  <div class="case-grid">
+    {caseStudies.map((cs) => (
+      <article class="case-card">
+        <div class="case-logo">
+          {cs.logo ? (
+            <img src={cs.logo} alt={`${cs.name} logo`} loading="lazy" />
+          ) : (
+            <span class={`wordmark wordmark-${cs.mark}`}>{cs.name}</span>
+          )}
+        </div>
+        <div class="case-role">{cs.role}</div>
+        <p class="case-summary">{cs.summary}</p>
+        <ul class="case-highlights">
+          {cs.highlights.map((h) => (
+            <li><span class="tick">→</span>{h}</li>
+          ))}
+        </ul>
+      </article>
+    ))}
+  </div>
+)}
 
 <style>
   .case-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 1.5rem;
+  }
+  .case-card-slide {
+    flex: 0 0 auto;
+    width: min(78vw, 380px);
+    scroll-snap-align: start;
+  }
+  .case-index {
+    color: var(--dim);
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    margin-bottom: 1.25rem;
   }
   .case-card {
     border: 1px solid var(--border);

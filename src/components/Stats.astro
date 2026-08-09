@@ -1,0 +1,93 @@
+---
+const stats = [
+  { value: 10, suffix: '+', label: 'years in performance' },
+  { value: 500, prefix: '£', suffix: 'k', label: 'peak monthly ad spend' },
+  { value: 7, suffix: '', label: 'paid channels run' },
+  { value: 8, suffix: '', label: 'industries shipped in' },
+];
+---
+
+<div class="stats">
+  {stats.map((s) => (
+    <div class="stat">
+      <div class="stat-value">
+        <span class="stat-affix">{s.prefix ?? ''}</span><span
+          class="stat-num"
+          data-count-to={s.value}
+        >0</span><span class="stat-affix">{s.suffix}</span>
+      </div>
+      <div class="stat-label">{s.label}</div>
+    </div>
+  ))}
+</div>
+
+<style>
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border-top: 1px solid var(--border);
+    border-left: 1px solid var(--border);
+  }
+  .stat {
+    border-right: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 1.75rem 1.25rem;
+  }
+  .stat-value {
+    font-size: clamp(1.6rem, 4vw, 2.4rem);
+    font-weight: 500;
+    line-height: 1;
+    color: var(--fg);
+    letter-spacing: -0.02em;
+    font-variant-numeric: tabular-nums;
+  }
+  .stat-affix { color: var(--accent); }
+  .stat-label {
+    color: var(--muted);
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-top: 0.85rem;
+    line-height: 1.5;
+  }
+
+  @media (max-width: 860px) {
+    .stats { grid-template-columns: 1fr 1fr; }
+    .stat { padding: 1.25rem 1rem; }
+  }
+</style>
+
+<script>
+  const nums = document.querySelectorAll<HTMLElement>('[data-count-to]');
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const run = (el: HTMLElement) => {
+    const target = Number(el.dataset.countTo || 0);
+    if (reduce) { el.textContent = String(target); return; }
+    const dur = 1100;
+    const start = performance.now();
+    const tick = (now: number) => {
+      const p = Math.min((now - start) / dur, 1);
+      // ease-out cubic
+      const eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = String(Math.round(target * eased));
+      if (p < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  };
+
+  if (nums.length) {
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting) {
+            run(e.target as HTMLElement);
+            io.unobserve(e.target);
+          }
+        }
+      },
+      { threshold: 0.4 }
+    );
+    nums.forEach((n) => io.observe(n));
+  }
+</script>

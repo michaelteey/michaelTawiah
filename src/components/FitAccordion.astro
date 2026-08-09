@@ -1,0 +1,144 @@
+---
+const items = [
+  {
+    k: 'budget',
+    q: 'you spend over £30k/mth',
+    a: 'as a performance marketer, i need ample investment to test, optimise, and ultimately get the best results. below that threshold there simply isn\'t enough signal to work with.',
+  },
+  {
+    k: 'expertise',
+    q: "you don't have a dedicated paid expert on your team",
+    a: 'growth compounds when you trust the person spending the budget. i manage upwards of £500k/mth, with 10+ years of validation behind it.',
+  },
+  {
+    k: 'cost',
+    q: 'you want senior expertise without the full-time cost',
+    a: 'former head of paid digital, services from £1k/mth. monthly basis — cancel any time. leaner than a full-time hire, often sharper.',
+  },
+];
+---
+
+<div class="acc">
+  {items.map((it, i) => (
+    <div class="acc-item" data-acc-item>
+      <button class="acc-head" data-acc-btn type="button" aria-expanded={i === 0 ? 'true' : 'false'}>
+        <span class="acc-k">{it.k}</span>
+        <span class="acc-q">{it.q}</span>
+        <span class="acc-sign" aria-hidden="true"></span>
+      </button>
+      <div class="acc-panel" data-acc-panel style={i === 0 ? '' : 'height:0'}>
+        <p>{it.a}</p>
+      </div>
+    </div>
+  ))}
+</div>
+
+<style>
+  .acc {
+    border-top: 1px solid var(--border);
+  }
+  .acc-item {
+    border-bottom: 1px solid var(--border);
+  }
+  .acc-head {
+    width: 100%;
+    background: none;
+    border: 0;
+    padding: 1.6rem 0;
+    display: grid;
+    grid-template-columns: 110px 1fr 24px;
+    align-items: center;
+    gap: 1.5rem;
+    text-align: left;
+    cursor: pointer;
+    font-family: var(--font-mono);
+    color: var(--fg);
+    transition: color 0.2s ease;
+  }
+  .acc-head:hover .acc-q { color: var(--accent); }
+  .acc-k {
+    color: var(--dim);
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+  }
+  .acc-q {
+    font-size: clamp(0.95rem, 2vw, 1.2rem);
+    transition: color 0.2s ease;
+  }
+  .acc-sign {
+    position: relative;
+    width: 14px;
+    height: 14px;
+    justify-self: end;
+  }
+  .acc-sign::before,
+  .acc-sign::after {
+    content: '';
+    position: absolute;
+    background: var(--accent);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .acc-sign::before { inset: 6px 0 6px 0; height: 1px; }
+  .acc-sign::after { inset: 0 6px 0 6px; width: 1px; }
+  .acc-head[aria-expanded='true'] .acc-sign::after { transform: scaleY(0); }
+  .acc-head[aria-expanded='true'] .acc-q { color: var(--accent); }
+
+  .acc-panel {
+    overflow: hidden;
+    transition: height 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .acc-panel p {
+    color: var(--muted);
+    font-size: 0.9rem;
+    line-height: 1.75;
+    margin: 0 0 1.6rem;
+    padding-left: calc(110px + 1.5rem);
+    max-width: 68ch;
+  }
+
+  @media (max-width: 700px) {
+    .acc-head { grid-template-columns: 1fr 20px; gap: 0.5rem 1rem; }
+    .acc-k { grid-column: 1 / -1; }
+    .acc-panel p { padding-left: 0; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .acc-panel { transition: none; }
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>('.acc').forEach((acc) => {
+    const items = Array.from(acc.querySelectorAll<HTMLElement>('[data-acc-item]'));
+
+    const setOpen = (item: HTMLElement, open: boolean) => {
+      const btn = item.querySelector<HTMLButtonElement>('[data-acc-btn]');
+      const panel = item.querySelector<HTMLElement>('[data-acc-panel]');
+      if (!btn || !panel) return;
+      btn.setAttribute('aria-expanded', String(open));
+      panel.style.height = open ? `${panel.scrollHeight}px` : '0px';
+    };
+
+    // establish initial heights now that layout is known
+    items.forEach((item) => {
+      const btn = item.querySelector<HTMLButtonElement>('[data-acc-btn]');
+      setOpen(item, btn?.getAttribute('aria-expanded') === 'true');
+    });
+
+    items.forEach((item) => {
+      const btn = item.querySelector<HTMLButtonElement>('[data-acc-btn]');
+      btn?.addEventListener('click', () => {
+        const isOpen = btn.getAttribute('aria-expanded') === 'true';
+        items.forEach((other) => setOpen(other, other === item && !isOpen));
+      });
+    });
+
+    // keep an open panel correctly sized through reflow
+    new ResizeObserver(() => {
+      items.forEach((item) => {
+        const btn = item.querySelector<HTMLButtonElement>('[data-acc-btn]');
+        if (btn?.getAttribute('aria-expanded') === 'true') setOpen(item, true);
+      });
+    }).observe(acc);
+  });
+</script>
