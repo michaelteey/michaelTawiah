@@ -437,6 +437,20 @@ const services = [
     .hero-inner { padding: 6rem 1.25rem 2rem; }
     .about-grid { grid-template-columns: 1fr; gap: 2rem; }
     .stats-wrap { margin-top: 2.5rem; }
-    .cta-grid { grid-template-columns: 1fr; gap: 1.25rem; }
+
+    /* Stacked single column: three full-size cards can't fit one
+       viewport, which clipped the dj card's button below the fold.
+       Compact the cards so the whole set stays on screen. */
+    .cta-grid { grid-template-columns: 1fr; gap: 0.75rem; }
+    .cta-card { padding: 1.4rem 1.5rem; }
+    .cta-label { left: 1.5rem; }
+    .cta-kicker { margin: 0.2rem 0 0.6rem; }
+    .cta-title { font-size: 1.1rem; margin-bottom: 0.55rem; }
+    .cta-body {
+      font-size: 0.8rem;
+      margin-bottom: 1rem;
+      flex: 0 1 auto;
+    }
+    .cta-btn { padding: 0.7rem 1rem; font-size: 0.7rem; }
   }
 </style>
