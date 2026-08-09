@@ -19,6 +19,7 @@ export interface CaseStudy {
 export const caseStudies: CaseStudy[] = [
   {
     name: '33mm',
+    logo: '/logos/33mm.png',
     mark: 'thirtythreemm',
     role: 'performance & growth lead',
     summary:
