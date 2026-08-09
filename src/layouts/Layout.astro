@@ -151,7 +151,10 @@ const {
               }
             }
           },
-          { rootMargin: '0px 0px -12% 0px', threshold: 0.08 }
+          // No negative bottom margin: sections are a full viewport tall,
+          // so anything in their lower band is already on screen and must
+          // still reveal (a -12% inset left footers/links stuck at opacity 0).
+          { rootMargin: '0px', threshold: 0.01 }
         );
         els.forEach((el) => io.observe(el));
       } else {

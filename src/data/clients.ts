@@ -31,11 +31,11 @@ export const caseStudies: CaseStudy[] = [
     summary:
       'took them from a five-figure to a seven-figure a month business — owning paid end-to-end and the analysis around it.',
     metrics: [
-      { label: 'monthly ad spend', from: '£10k', to: '£250k' },
-      { label: 'monthly revenue', from: '£40k', to: '£900k' },
+      { label: 'monthly revenue', from: '5 figures', to: '7 figures' },
+      { label: 'monthly ad spend', from: '5 figures', to: '6 figures' },
     ],
     highlights: [
-      'scaled spend 25x while holding efficiency',
+      'scaled spend ~25x while holding efficiency',
       'blended cac, roas and contribution — not just platform-reported numbers',
       'ongoing engagement',
     ],
