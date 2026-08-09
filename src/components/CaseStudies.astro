@@ -22,6 +22,20 @@ const { layout = 'grid' } = Astro.props;
         </div>
         <div class="case-role">{cs.role}</div>
         <p class="case-summary">{cs.summary}</p>
+        {cs.metrics && (
+          <div class="metrics">
+            {cs.metrics.map((m) => (
+              <div class="metric">
+                <div class="metric-label">{m.label}</div>
+                <div class="metric-move">
+                  <span class="metric-from">{m.from}</span>
+                  <span class="metric-arrow">→</span>
+                  <span class="metric-to">{m.to}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
         <ul class="case-highlights">
           {cs.highlights.map((h) => (
             <li><span class="tick">→</span>{h}</li>
@@ -43,6 +57,20 @@ const { layout = 'grid' } = Astro.props;
         </div>
         <div class="case-role">{cs.role}</div>
         <p class="case-summary">{cs.summary}</p>
+        {cs.metrics && (
+          <div class="metrics">
+            {cs.metrics.map((m) => (
+              <div class="metric">
+                <div class="metric-label">{m.label}</div>
+                <div class="metric-move">
+                  <span class="metric-from">{m.from}</span>
+                  <span class="metric-arrow">→</span>
+                  <span class="metric-to">{m.to}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
         <ul class="case-highlights">
           {cs.highlights.map((h) => (
             <li><span class="tick">→</span>{h}</li>
@@ -144,6 +172,38 @@ const { layout = 'grid' } = Astro.props;
     line-height: 1.7;
     margin: 0 0 1.25rem;
   }
+  .metrics {
+    display: grid;
+    gap: 0.5rem;
+    margin: 0 0 1.1rem;
+    padding: 0.85rem 0;
+    border-top: 1px dashed var(--border);
+    border-bottom: 1px dashed var(--border);
+  }
+  .metric-label {
+    color: var(--dim);
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 0.2rem;
+  }
+  .metric-move {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    font-size: 0.95rem;
+  }
+  .metric-from {
+    color: var(--muted);
+    text-decoration: line-through;
+    text-decoration-color: var(--dim);
+  }
+  .metric-arrow { color: var(--dim); font-size: 0.75rem; }
+  .metric-to {
+    color: var(--accent);
+    font-weight: 500;
+  }
+
   .case-highlights {
     list-style: none;
     margin: 0;
@@ -165,5 +225,26 @@ const { layout = 'grid' } = Astro.props;
 
   @media (max-width: 760px) {
     .case-grid { grid-template-columns: 1fr; gap: 1.25rem; }
+  }
+
+  /* the metrics block adds height; keep the horizontal cards inside a
+     single snapped viewport on shorter screens */
+  @media (max-height: 940px) {
+    .case-card-slide { padding: 1.5rem 1.4rem; }
+    .case-card-slide .case-index { margin-bottom: 0.85rem; }
+    .case-card-slide .case-logo { min-height: 44px; margin-bottom: 1rem; }
+    .case-card-slide .case-logo img { max-height: 32px; }
+    .case-card-slide .wordmark { font-size: 1.35rem; }
+    .case-card-slide .wordmark-thirtythreemm { font-size: 1.15rem; }
+    .case-card-slide .case-role { margin-bottom: 0.6rem; }
+    .case-card-slide .case-summary {
+      font-size: 0.82rem;
+      line-height: 1.6;
+      margin-bottom: 0.9rem;
+    }
+    .case-card-slide .metrics { padding: 0.6rem 0; margin-bottom: 0.85rem; gap: 0.4rem; }
+    .case-card-slide .metric-move { font-size: 0.85rem; }
+    .case-card-slide .case-highlights { gap: 0.35rem; }
+    .case-card-slide .case-highlights li { font-size: 0.76rem; line-height: 1.5; }
   }
 </style>

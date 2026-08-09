@@ -209,7 +209,9 @@ const {
     scroll-snap-stop: always;
   }
 
-  @media (min-height: 700px) {
+  /* Snap only on precise pointers. On touch, content reflows taller than
+     the screen and mandatory snapping would fight the user's thumb. */
+  @media (min-height: 700px) and (pointer: fine) {
     html {
       scroll-snap-type: y mandatory;
     }

@@ -5,15 +5,21 @@ export interface Client {
   note?: string;
 }
 
+export interface Metric {
+  label: string;
+  from: string;
+  to: string;
+}
+
 export interface CaseStudy {
   name: string;
-  /** Optional image in /public/logos — e.g. '/logos/tiktok.svg'. Falls back to a styled wordmark. */
+  /** Optional image in /public/logos — falls back to a styled wordmark. */
   logo?: string;
-  /** CSS font-stack flavour for the wordmark fallback */
   mark: 'tiktok' | 'vanquish' | 'thirtythreemm' | 'mvf';
   role: string;
   summary: string;
   highlights: string[];
+  metrics?: Metric[];
 }
 
 export const caseStudies: CaseStudy[] = [
@@ -23,67 +29,88 @@ export const caseStudies: CaseStudy[] = [
     mark: 'thirtythreemm',
     role: 'performance & growth lead',
     summary:
-      'my main client — running end-to-end performance marketing and growth for the company.',
+      'took them from a five-figure to a seven-figure a month business — owning paid end-to-end and the analysis around it.',
+    metrics: [
+      { label: 'monthly ad spend', from: '£10k', to: '£250k' },
+      { label: 'monthly revenue', from: '£40k', to: '£900k' },
+    ],
     highlights: [
-      'full ownership of paid strategy, execution and reporting',
-      'growth remit beyond paid — blended cac, roas and budget allocation',
+      'scaled spend 25x while holding efficiency',
+      'blended cac, roas and contribution — not just platform-reported numbers',
       'ongoing engagement',
     ],
   },
   {
     name: 'tiktok',
     mark: 'tiktok',
-    role: 'paid marketing specialist',
+    role: 'agency partner',
     summary:
-      'helped spearhead influencer-led tiktok campaigns, driving app installs through paid marketing platforms.',
+      'drove app installs across google and facebook using influencer-led creative.',
     highlights: [
-      'influencer-led creative strategy at platform scale',
-      'app install activation across paid channels',
+      'influencer content as the primary creative engine',
+      'install volume scaled across paid social and search',
     ],
   },
   {
     name: 'vanquish fitness',
     mark: 'vanquish',
-    role: 'head of paid digital',
+    role: 'head of paid social',
     summary:
-      'solely responsible for end-to-end performance marketing across all channels.',
+      'ran six-figure monthly end-to-end budgets, with a hand in every analytical part of the business.',
     highlights: [
-      'managed six-figure monthly end-to-end budgets',
-      'owned strategy, creative direction and optimisation across meta, google and more',
+      'six-figure monthly budgets across paid social',
+      'performance, stock, analysis and finance — analytics across departments',
+      'owned strategy, creative direction and day-to-day optimisation',
     ],
   },
   {
     name: 'mvf',
     mark: 'mvf',
-    role: 'head of emerging paid media',
+    role: 'senior emergent paid media specialist',
     summary:
-      'headed the emerging paid media (epm) team at one of the uk\'s biggest lead-gen businesses.',
+      'led the b2b side of the emergent paid media function, building a revenue line from close to nothing.',
+    metrics: [{ label: 'new b2b revenue', from: 'sub £10k', to: '£500k+' }],
     highlights: [
-      'built and led the epm function',
-      'scaled the b2b region from zero to £200k / mth',
+      'built the b2b revenue function in roughly six months',
+      'scaled emergent channels — pinterest, snapchat, twitter and facebook',
     ],
   },
 ];
 
 export const clients: Client[] = [
   {
-    name: 'livescore',
-    sector: 'app installs',
-    note: 'european paid app install activation.',
+    name: 'the care side',
+    sector: 'lead generation',
+    note: 'paid search and paid social — broke through paid social as a viable channel.',
   },
   {
-    name: 'socials.com',
-    sector: 'app installs',
-    note: 'paid app install activation, similar shape to livescore.',
+    name: 'world vision',
+    sector: 'lead generation',
+    note: 'paid acquisition for one of the largest international charities.',
+  },
+  {
+    name: 'active content',
+    sector: 'lead generation',
+    note: 'driving lead performance across paid channels.',
+  },
+  {
+    name: 'emma j shipley',
+    sector: 'd2c / e-commerce',
+    note: 'luxury hand-drawn homeware and accessories — wallpaper, fabrics, fine china and jewellery.',
   },
   {
     name: 'runna',
     sector: 'app installs',
-    note: 'scaling app install activity on paid social.',
+    note: 'scaling app install activity on facebook.',
   },
   {
-    name: 'the care side',
-    sector: 'healthcare',
-    note: 'responsible for paid search and paid social — broke through paid social as a viable channel.',
+    name: 'socios.com',
+    sector: 'app installs',
+    note: 'facebook app install strategy.',
+  },
+  {
+    name: 'livescore',
+    sector: 'app installs',
+    note: 'european facebook app install strategy.',
   },
 ];

@@ -8,31 +8,34 @@ import Stats from '../components/Stats.astro';
 import FitAccordion from '../components/FitAccordion.astro';
 import StackTabs from '../components/StackTabs.astro';
 import HScroller from '../components/HScroller.astro';
+import AutomatedAds from '../components/AutomatedAds.astro';
+import Breakdown from '../components/Breakdown.astro';
+import Verticals from '../components/Verticals.astro';
 
 const services = [
   {
     n: '01',
-    title: 'paid media management',
-    body: 'end-to-end campaign management across meta, tiktok and google. full strategy, creative direction, day-to-day optimisation — the whole agency, run by one senior operator.',
-    tags: ['strategy', 'creative direction', 'optimisation'],
+    title: 'technical paid media',
+    body: "end-to-end management across meta, google and tiktok — run by a technical specialist, not a generalist. every variable broken out, tested and acted on before the competition sees it.",
+    tags: ['creative testing', 'granular analysis', 'fast iteration'],
   },
   {
     n: '02',
     title: 'growth & measurement',
-    body: "blended cac, blended roas, incrementality testing and top-line budget allocation. pixel / tag implementation and the infrastructure needed to trust the numbers you're spending against.",
+    body: "blended cac, blended roas, contribution and incrementality. pixel and tag implementation, plus the infrastructure needed to trust the numbers you're spending against.",
     tags: ['blended cac', 'incrementality', 'tagging'],
   },
   {
     n: '03',
-    title: 'automation & technical',
-    body: "python-powered reporting, api integrations and custom tooling. competitive-edge automation that most in-house teams don't have the bandwidth — or skillset — to build.",
-    tags: ['python', 'apis', 'custom tooling'],
+    title: 'insight beyond promotion',
+    body: "marketing is one p of four. i execute promotion — and feed the analysis into product, price and place, because that's where the rest of the growth actually sits.",
+    tags: ['pricing analysis', 'product mix', 'cohorts'],
   },
   {
     n: '04',
-    title: 'automatedAds platform',
-    body: 'live campaign trends, cpa scoring, creative breakdowns and one-click execution — the platform built from a decade of doing this by hand.',
-    tags: ['cpa scoring', 'live trends', 'one-click'],
+    title: 'automation & tooling',
+    body: 'python-powered reporting, api integrations and custom builds — the automation layer that makes the granularity above practical rather than theoretical.',
+    tags: ['python', 'apis', 'automatedAds'],
   },
 ];
 ---
@@ -61,19 +64,21 @@ const services = [
         <div class="about-text reveal reveal-d1">
           <h2 class="section-title">hey — i'm mike.</h2>
           <p>
-            i run <span class="hl">big-budget performance marketing</span> — end-to-end
-            paid across meta, tiktok and google. <span class="hl">10+ years</span>
-            doing it, having managed upwards of <span class="hl">£500k/mth</span> in
-            ad spend.
+            i'm a <span class="hl">technical performance marketer</span> — not a
+            general one. <span class="hl">10+ years</span> running end-to-end paid
+            across meta, google and tiktok, managing upwards of
+            <span class="hl">£500k/mth</span>.
           </p>
           <p>
-            i look after everything that drives revenue from paid — blended cac,
-            blended roas, blended cost — then top-line budget allocation down into
-            the nitty-gritty per-campaign, per-platform optimisation.
+            marketing is only one part of the funnel. product, price, place and
+            promotion — i execute the <span class="hl">promotion</span>, and play a
+            heavy analysis and insight role across the rest, because that's where
+            most of the growth is actually hiding.
           </p>
           <p>
-            i also run <a href="https://www.automated-ads.com" class="inline-link">automatedAds</a> —
-            the platform i've built from a decade of learning.
+            the edge is resolution: breaking out variables most teams never see,
+            then moving on them fast. that's also why i built
+            <a href="https://www.automated-ads.com" class="inline-link">automatedAds</a>.
           </p>
         </div>
         <aside class="about-meta reveal reveal-d2">
@@ -94,7 +99,28 @@ const services = [
       </div>
     </section>
 
-    <!-- 03 — services, horizontal -->
+    <!-- 03 — case studies, horizontal -->
+    <section class="section snap" id="work">
+      <div class="section-label reveal">selected work</div>
+      <h2 class="section-title section-title-lg reveal reveal-d1">brands i've driven growth for</h2>
+      <div class="reveal reveal-d2">
+        <CaseStudies layout="row" />
+      </div>
+      <p class="work-more reveal reveal-d3">
+        <a href="/clients" class="inline-link">see everyone i've worked with ↗</a>
+      </p>
+    </section>
+
+    <!-- 04 — automatedAds -->
+    <section class="section snap" id="automatedads">
+      <div class="section-label reveal">the platform</div>
+      <h2 class="section-title section-title-lg reveal reveal-d1">i built the tooling i run on</h2>
+      <div class="reveal reveal-d2">
+        <AutomatedAds />
+      </div>
+    </section>
+
+    <!-- 05 — services, horizontal -->
     <section class="section snap" id="services">
       <div class="section-head reveal">
         <div>
@@ -118,19 +144,25 @@ const services = [
       </div>
     </section>
 
-    <!-- 04 — case studies, horizontal -->
-    <section class="section snap" id="work">
-      <div class="section-label reveal">selected work</div>
-      <h2 class="section-title section-title-lg reveal reveal-d1">brands i've driven growth for</h2>
+    <!-- 06 — how i break it down -->
+    <section class="section snap" id="method">
+      <div class="section-label reveal">the method</div>
+      <h2 class="section-title section-title-lg reveal reveal-d1">how i break things down</h2>
       <div class="reveal reveal-d2">
-        <CaseStudies layout="row" />
+        <Breakdown />
       </div>
-      <p class="work-more reveal reveal-d3">
-        <a href="/clients" class="inline-link">see everyone i've worked with ↗</a>
-      </p>
     </section>
 
-    <!-- 05 — fit, accordion -->
+    <!-- 07 — ecom vs lead gen -->
+    <section class="section snap" id="verticals">
+      <div class="section-label reveal">where i work</div>
+      <h2 class="section-title section-title-lg reveal reveal-d1">two very different games</h2>
+      <div class="reveal reveal-d2">
+        <Verticals />
+      </div>
+    </section>
+
+    <!-- 08 — fit, accordion -->
     <section class="section snap" id="fit">
       <div class="section-label reveal">the fit</div>
       <h2 class="section-title section-title-lg reveal reveal-d1">we could be a good fit if —</h2>
@@ -139,7 +171,7 @@ const services = [
       </div>
     </section>
 
-    <!-- 06 — stack, filterable -->
+    <!-- 09 — stack, filterable -->
     <section class="section snap" id="skills">
       <div class="section-label reveal">the stack</div>
       <h2 class="section-title section-title-lg reveal reveal-d1">everything i touch</h2>
@@ -148,7 +180,7 @@ const services = [
       </div>
     </section>
 
-    <!-- 07 — cta -->
+    <!-- 10 — cta -->
     <section class="section snap cta-section">
       <div class="cta-grid">
         <article class="cta-card cta-card-alt reveal">
