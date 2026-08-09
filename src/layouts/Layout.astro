@@ -170,8 +170,10 @@ const {
     --fg: #e8e8e8;
     --muted: #6b6b6b;
     --dim: #3a3a3a;
-    --accent: #00ff9d;
-    --accent-dim: rgba(0, 255, 157, 0.15);
+    --accent: #00ffc8;
+    /* deeper accent tone, used for numbering / indices */
+    --accent-deep: #00a882;
+    --accent-dim: rgba(0, 255, 200, 0.15);
     --border: #1a1a1a;
     --card: #0a0a0a;
     --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
@@ -241,6 +243,24 @@ const {
       margin-bottom: 1.25rem;
       font-size: clamp(1.5rem, 3vw, 2rem);
     }
+  }
+
+  /* terminal caret — mirrors the automatedAds sales page */
+  .caret {
+    display: inline-block;
+    width: 2px;
+    height: 1.2em;
+    background: var(--accent);
+    margin-left: 4px;
+    vertical-align: text-bottom;
+    animation: blink 1s step-end infinite;
+  }
+  @keyframes blink {
+    50% { opacity: 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .caret { animation: none; }
   }
 
   /* reveal-on-scroll */
