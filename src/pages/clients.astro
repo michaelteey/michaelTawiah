@@ -2,7 +2,8 @@
 import Layout from '../layouts/Layout.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
-import { clients, caseStudies } from '../data/clients';
+import CaseStudies from '../components/CaseStudies.astro';
+import { clients } from '../data/clients';
 
 const grouped = clients.reduce<Record<string, typeof clients>>((acc, c) => {
   const key = c.sector ?? 'other';
@@ -28,26 +29,7 @@ const sectors = Object.keys(grouped).sort();
 
     <section class="section">
       <div class="section-label">case studies</div>
-      <div class="case-grid">
-        {caseStudies.map((cs) => (
-          <article class="case-card">
-            <div class="case-logo">
-              {cs.logo ? (
-                <img src={cs.logo} alt={`${cs.name} logo`} loading="lazy" />
-              ) : (
-                <span class={`wordmark wordmark-${cs.mark}`}>{cs.name}</span>
-              )}
-            </div>
-            <div class="case-role">{cs.role}</div>
-            <p class="case-summary">{cs.summary}</p>
-            <ul class="case-highlights">
-              {cs.highlights.map((h) => (
-                <li><span class="tick">→</span>{h}</li>
-              ))}
-            </ul>
-          </article>
-        ))}
-      </div>
+      <CaseStudies />
     </section>
 
     <section class="section">
@@ -146,105 +128,7 @@ const sectors = Object.keys(grouped).sort();
     text-align: center;
   }
 
-  /* ---------- case studies ---------- */
-  .case-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1.5rem;
-  }
-  .case-card {
-    border: 1px solid var(--border);
-    background: var(--card);
-    padding: 2.25rem 2rem;
-    display: flex;
-    flex-direction: column;
-    transition: border-color 0.2s ease, transform 0.2s ease;
-  }
-  .case-card:hover {
-    border-color: var(--accent-dim);
-    transform: translateY(-2px);
-  }
-  .case-logo {
-    min-height: 64px;
-    display: flex;
-    align-items: center;
-    margin-bottom: 1.5rem;
-  }
-  .case-logo img {
-    max-height: 48px;
-    max-width: 180px;
-    object-fit: contain;
-    filter: grayscale(1) brightness(1.6);
-  }
-  .wordmark {
-    font-size: 1.75rem;
-    color: var(--fg);
-    line-height: 1;
-  }
-  /* tiktok — black app, cyan/pink glitch offsets */
-  .wordmark-tiktok {
-    font-weight: 700;
-    letter-spacing: -0.03em;
-    color: #fff;
-    text-shadow: 2px 0 rgba(0, 242, 234, 0.75), -2px 0 rgba(254, 44, 85, 0.75);
-  }
-  /* vanquish — stark black/white athletic wordmark */
-  .wordmark-vanquish {
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.18em;
-    font-size: 1.35rem;
-    color: #ffffff;
-  }
-  /* 33mm — minimalist fashion label, black-on-white light theme */
-  .wordmark-thirtythreemm {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    font-weight: 500;
-    letter-spacing: 0.04em;
-    background: #f5f4f0;
-    color: #111111;
-    padding: 0.4rem 0.9rem;
-    font-size: 1.4rem;
-  }
-  /* mvf — cream wordmark on dark */
-  .wordmark-mvf {
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.3em;
-    color: #ede6d6;
-  }
-  .case-role {
-    color: var(--accent);
-    font-size: 0.7rem;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    margin-bottom: 0.9rem;
-  }
-  .case-summary {
-    color: #b8b8b8;
-    font-size: 0.9rem;
-    line-height: 1.7;
-    margin: 0 0 1.25rem;
-  }
-  .case-highlights {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: grid;
-    gap: 0.5rem;
-  }
-  .case-highlights li {
-    color: var(--muted);
-    font-size: 0.82rem;
-    line-height: 1.6;
-    display: flex;
-    gap: 0.6rem;
-  }
-  .tick {
-    color: var(--accent);
-    flex-shrink: 0;
-  }
-
+  /* ---------- also worked with ---------- */
   .sectors {
     display: grid;
     gap: 3rem;
@@ -272,7 +156,7 @@ const sectors = Object.keys(grouped).sort();
   .client-card {
     border: 1px solid var(--border);
     background: var(--card);
-    padding: 1.25rem 1.25rem;
+    padding: 1.25rem;
     transition: border-color 0.2s ease, transform 0.2s ease;
   }
   .client-card:hover {
@@ -328,9 +212,5 @@ const sectors = Object.keys(grouped).sort();
   .cta-btn-solid:hover {
     background: transparent;
     color: var(--accent);
-  }
-
-  @media (max-width: 760px) {
-    .case-grid { grid-template-columns: 1fr; gap: 1.25rem; }
   }
 </style>

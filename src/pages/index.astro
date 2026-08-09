@@ -2,7 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
-import { caseStudies } from '../data/clients';
+import CaseStudies from '../components/CaseStudies.astro';
 ---
 
 <Layout title="michael tawiah — performance marketer & dj">
@@ -102,16 +102,9 @@ import { caseStudies } from '../data/clients';
     <section class="section" id="work">
       <div class="section-label">selected work</div>
       <h2 class="section-title section-title-lg">brands i've driven growth for</h2>
-      <div class="logo-row">
-        {caseStudies.map((cs) => (
-          <a href="/clients" class="logo-chip">
-            <span class={`wordmark wordmark-${cs.mark}`}>{cs.name}</span>
-            <span class="logo-role">{cs.role}</span>
-          </a>
-        ))}
-      </div>
+      <CaseStudies />
       <p class="work-more">
-        <a href="/clients" class="inline-link">see the full case studies ↗</a>
+        <a href="/clients" class="inline-link">see everyone i've worked with ↗</a>
       </p>
     </section>
 
@@ -324,71 +317,9 @@ import { caseStudies } from '../data/clients';
   }
 
   /* ---------- selected work ---------- */
-  .logo-row {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1rem;
-  }
-  .logo-chip {
-    border: 1px solid var(--border);
-    background: var(--card);
-    padding: 1.75rem 1.25rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 0.85rem;
-    min-height: 130px;
-    text-align: center;
-    transition: border-color 0.2s ease, transform 0.2s ease;
-  }
-  .logo-chip:hover {
-    border-color: var(--accent-dim);
-    transform: translateY(-2px);
-  }
-  .logo-role {
-    color: var(--muted);
-    font-size: 0.65rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    line-height: 1.4;
-  }
   .work-more {
     margin: 2rem 0 0;
     font-size: 0.85rem;
-  }
-
-  .wordmark {
-    font-size: 1.3rem;
-    color: var(--fg);
-    line-height: 1;
-  }
-  .wordmark-tiktok {
-    font-weight: 700;
-    letter-spacing: -0.03em;
-    color: #fff;
-    text-shadow: 2px 0 rgba(0, 242, 234, 0.75), -2px 0 rgba(254, 44, 85, 0.75);
-  }
-  .wordmark-vanquish {
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.16em;
-    font-size: 1rem;
-    color: #ffffff;
-  }
-  .wordmark-thirtythreemm {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    font-weight: 500;
-    letter-spacing: 0.04em;
-    background: #f5f4f0;
-    color: #111111;
-    padding: 0.3rem 0.7rem;
-  }
-  .wordmark-mvf {
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.3em;
-    color: #ede6d6;
   }
 
   .cards {
@@ -571,7 +502,6 @@ import { caseStudies } from '../data/clients';
   @media (max-width: 860px) {
     .about-grid { grid-template-columns: 1fr; gap: 2rem; }
     .cards { grid-template-columns: 1fr; }
-    .logo-row { grid-template-columns: 1fr 1fr; }
     .skill-row { grid-template-columns: 1fr; gap: 0.5rem; }
     .cta-grid { grid-template-columns: 1fr; gap: 1.25rem; }
   }
