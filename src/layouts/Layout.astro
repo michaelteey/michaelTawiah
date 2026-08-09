@@ -51,6 +51,30 @@ const {
     <slot />
 
     <script>
+      // Sticky snap guard: a section taller than the viewport must not be
+      // a snap target, otherwise mandatory snapping yanks the reader away
+      // from content they haven't reached yet.
+      const snapSections = document.querySelectorAll('.snap');
+      if (snapSections.length) {
+        let raf = 0;
+        const applyGuards = () => {
+          snapSections.forEach((s) => {
+            const tooTall = s.scrollHeight > window.innerHeight + 8;
+            s.style.scrollSnapAlign = tooTall ? 'none' : '';
+            s.style.scrollSnapStop = tooTall ? 'normal' : '';
+          });
+        };
+        const schedule = () => {
+          cancelAnimationFrame(raf);
+          raf = requestAnimationFrame(applyGuards);
+        };
+        applyGuards();
+        window.addEventListener('resize', schedule);
+        window.addEventListener('orientationchange', schedule);
+        // re-measure once fonts land, since they change content height
+        if (document.fonts?.ready) document.fonts.ready.then(schedule);
+      }
+
       const els = document.querySelectorAll('.reveal');
       if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches && els.length) {
         const io = new IntersectionObserver(
@@ -108,11 +132,11 @@ const {
     scroll-behavior: smooth;
   }
 
-  /* Full-viewport snap sections. Only engaged where there is genuinely
-     room — on short or narrow screens mandatory snapping fights the
-     user and can trap content taller than the viewport. */
+  /* Full-viewport sticky snap: one section per gesture. Sections taller
+     than the viewport get their snap-align stripped at runtime (see the
+     guard script) so they can never trap the reader mid-content. */
   .snap {
-    min-height: 100vh;
+    min-height: 100svh;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -120,10 +144,24 @@ const {
     scroll-snap-stop: always;
   }
 
-  @media (min-width: 861px) and (min-height: 720px) {
+  @media (min-height: 600px) {
     html {
-      scroll-snap-type: y proximity;
+      scroll-snap-type: y mandatory;
     }
+  }
+
+  /* tighter vertical rhythm so a section actually fits one screen */
+  .snap.section {
+    padding-top: 6.5rem;
+    padding-bottom: 4rem;
+  }
+  .snap .section-label { margin-bottom: 1.75rem; }
+  .snap .section-title-lg { margin-bottom: 2.25rem; }
+
+  @media (max-height: 800px) {
+    .snap.section { padding-top: 5.5rem; padding-bottom: 3rem; }
+    .snap .section-label { margin-bottom: 1.25rem; }
+    .snap .section-title-lg { margin-bottom: 1.5rem; }
   }
 
   /* reveal-on-scroll */
