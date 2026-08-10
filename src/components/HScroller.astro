@@ -23,7 +23,7 @@ const { id, label = 'horizontal content' } = Astro.props;
       <button class="hs-btn" data-hs-next aria-label="Next" type="button">→</button>
     </div>
   </div>
-  <p class="hs-hint">drag, scroll or use ← →</p>
+  <p class="hs-hint">swipe, drag or use ← →</p>
 </div>
 
 <style>
@@ -38,8 +38,13 @@ const { id, label = 'horizontal content' } = Astro.props;
     scrollbar-width: none;
     -ms-overflow-style: none;
     cursor: grab;
-    /* let the page own vertical scrolling while this owns horizontal */
-    touch-action: pan-y;
+    /* Must allow BOTH axes. `pan-y` alone tells the browser only
+       vertical panning is permitted here, which blocks finger-swiping
+       the rail entirely. Allowing both lets the browser route a
+       horizontal swipe to this element and a vertical one to the page. */
+    touch-action: pan-x pan-y;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
     outline: none;
     padding-bottom: 0.5rem;
   }
@@ -117,7 +122,7 @@ const { id, label = 'horizontal content' } = Astro.props;
 
   @media (max-width: 860px) {
     .hs-controls { margin-top: 1.25rem; }
-    .hs-hint { display: none; }
+    .hs-hint { display: block; }
   }
 </style>
 

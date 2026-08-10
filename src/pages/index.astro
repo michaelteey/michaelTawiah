@@ -11,6 +11,7 @@ import HScroller from '../components/HScroller.astro';
 import AutomatedAds from '../components/AutomatedAds.astro';
 import Breakdown from '../components/Breakdown.astro';
 import Verticals from '../components/Verticals.astro';
+import MatrixRain from '../components/MatrixRain.astro';
 
 const services = [
   {
@@ -46,6 +47,7 @@ const services = [
   <main id="top">
     <!-- 01 — hero -->
     <section class="hero snap">
+      <MatrixRain />
       <div class="hero-glow"></div>
       <div class="hero-inner">
         <h1 class="hero-title">michaelTawiah<span class="dot">.</span></h1>
@@ -97,7 +99,7 @@ const services = [
     <!-- 03 — case studies, horizontal -->
     <section class="section snap" id="work">
       <div class="section-label reveal">selected work</div>
-      <h2 class="section-title section-title-lg reveal reveal-d1">brands i've driven growth for</h2>
+      <h2 class="section-title section-title-lg reveal reveal-d1" data-scramble>brands i've driven growth for</h2>
       <div class="reveal reveal-d2">
         <CaseStudies layout="row" />
       </div>
@@ -109,7 +111,7 @@ const services = [
     <!-- 04 — automatedAds -->
     <section class="section snap" id="automatedads">
       <div class="section-label reveal">the platform</div>
-      <h2 class="section-title section-title-lg reveal reveal-d1">i built the tooling i run on</h2>
+      <h2 class="section-title section-title-lg reveal reveal-d1" data-scramble>i built the tooling i run on</h2>
       <div class="reveal reveal-d2">
         <AutomatedAds />
       </div>
@@ -120,7 +122,7 @@ const services = [
       <div class="section-head reveal">
         <div>
           <div class="section-label">what i do</div>
-          <h2 class="section-title section-title-lg">four ways i drive growth</h2>
+          <h2 class="section-title section-title-lg" data-scramble>four ways i drive growth</h2>
         </div>
       </div>
       <div class="reveal reveal-d1">
@@ -142,7 +144,7 @@ const services = [
     <!-- 06 — how i break it down -->
     <section class="section snap" id="method">
       <div class="section-label reveal">the method</div>
-      <h2 class="section-title section-title-lg reveal reveal-d1">how i break things down</h2>
+      <h2 class="section-title section-title-lg reveal reveal-d1" data-scramble>how i break things down</h2>
       <div class="reveal reveal-d2">
         <Breakdown />
       </div>
@@ -151,7 +153,7 @@ const services = [
     <!-- 07 — ecom vs lead gen -->
     <section class="section snap" id="verticals">
       <div class="section-label reveal">where i work</div>
-      <h2 class="section-title section-title-lg reveal reveal-d1">two very different games</h2>
+      <h2 class="section-title section-title-lg reveal reveal-d1" data-scramble>two very different games</h2>
       <div class="reveal reveal-d2">
         <Verticals />
       </div>
@@ -160,7 +162,7 @@ const services = [
     <!-- 08 — fit, accordion -->
     <section class="section snap" id="fit">
       <div class="section-label reveal">the fit</div>
-      <h2 class="section-title section-title-lg reveal reveal-d1">we could be a good fit if —</h2>
+      <h2 class="section-title section-title-lg reveal reveal-d1" data-scramble>we could be a good fit if —</h2>
       <div class="reveal reveal-d2">
         <FitAccordion />
       </div>
@@ -169,7 +171,7 @@ const services = [
     <!-- 09 — stack, filterable -->
     <section class="section snap" id="skills">
       <div class="section-label reveal">the stack</div>
-      <h2 class="section-title section-title-lg reveal reveal-d1">everything i touch</h2>
+      <h2 class="section-title section-title-lg reveal reveal-d1" data-scramble>everything i touch</h2>
       <div class="reveal reveal-d2">
         <StackTabs />
       </div>

@@ -162,6 +162,51 @@ const {
         window.addEventListener('scroll', () => { if (!locked) index = currentIndex(); }, { passive: true });
       }
 
+      // ---- decode-on-reveal ---------------------------------------
+      // Characters cycle through a glyph set before locking into place,
+      // left to right — a terminal decoding a transmission.
+      const GLYPHS = 'アイウエオカキクケコサシスセソタチツテトナニヌネノ0123456789<>/\\[]{}=+*#$%&';
+      const scrambleEls = document.querySelectorAll('[data-scramble]');
+
+      if (scrambleEls.length && !reduceMotion.matches) {
+        const decode = (el) => {
+          const final = el.textContent;
+          const chars = [...final];
+          // stagger: each character locks a little after the one before
+          const settleAt = chars.map((c, i) =>
+            c === ' ' ? 0 : 6 + i * 1.6 + Math.random() * 5
+          );
+          let frame = 0;
+          const total = Math.max(...settleAt) + 2;
+
+          const tick = () => {
+            el.textContent = chars
+              .map((c, i) =>
+                frame >= settleAt[i]
+                  ? c
+                  : GLYPHS[(Math.random() * GLYPHS.length) | 0]
+              )
+              .join('');
+            if (frame++ < total) requestAnimationFrame(tick);
+            else el.textContent = final;
+          };
+          requestAnimationFrame(tick);
+        };
+
+        const sio = new IntersectionObserver(
+          (entries) => {
+            for (const e of entries) {
+              if (e.isIntersecting) {
+                decode(e.target);
+                sio.unobserve(e.target);
+              }
+            }
+          },
+          { threshold: 0.4 }
+        );
+        scrambleEls.forEach((el) => sio.observe(el));
+      }
+
       const els = document.querySelectorAll('.reveal');
       if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches && els.length) {
         const io = new IntersectionObserver(
@@ -272,6 +317,51 @@ const {
     }
   }
 
+  /* Cards get a scan-sweep on hover: a thin accent line travels the top
+     edge, like a row being read. Cheap (transform only) and thematic. */
+  .card,
+  .svc,
+  .case-card,
+  .cta-card,
+  .vert-panel,
+  .client-card,
+  .aads-tier {
+    position: relative;
+    overflow: hidden;
+  }
+  .card::after,
+  .svc::after,
+  .case-card::after,
+  .cta-card::after,
+  .vert-panel::after,
+  .client-card::after,
+  .aads-tier::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      var(--accent),
+      transparent
+    );
+    transform: translateX(-100%);
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    pointer-events: none;
+  }
+  .card:hover::after,
+  .svc:hover::after,
+  .case-card:hover::after,
+  .cta-card:hover::after,
+  .vert-panel:hover::after,
+  .client-card:hover::after,
+  .aads-tier:hover::after {
+    transform: translateX(100%);
+  }
+
   /* terminal caret — mirrors the automatedAds sales page */
   .caret {
     display: inline-block;
@@ -286,8 +376,31 @@ const {
     50% { opacity: 0; }
   }
 
+  /* RGB-split glitch, used sparingly on the logo */
+  .glitch {
+    position: relative;
+  }
+  .glitch:hover {
+    animation: glitch-shift 0.32s steps(2, end) 2;
+    text-shadow: 1.5px 0 rgba(255, 0, 80, 0.75), -1.5px 0 rgba(0, 255, 200, 0.75);
+  }
+  @keyframes glitch-shift {
+    0%, 100% { transform: translate(0, 0); }
+    25% { transform: translate(-1px, 1px); }
+    50% { transform: translate(1px, -1px); }
+    75% { transform: translate(-1px, 0); }
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .caret { animation: none; }
+    .glitch:hover { animation: none; text-shadow: none; }
+    .card::after,
+    .svc::after,
+    .case-card::after,
+    .cta-card::after,
+    .vert-panel::after,
+    .client-card::after,
+    .aads-tier::after { display: none; }
   }
 
   /* reveal-on-scroll */
