@@ -1,0 +1,213 @@
+---
+interface Props {
+  /** unique id so multiple scrollers can coexist on a page */
+  id: string;
+  label?: string;
+}
+const { id, label = 'horizontal content' } = Astro.props;
+---
+
+<div class="hs" data-hs={id}>
+  <div class="hs-viewport" data-hs-viewport tabindex="0" role="region" aria-label={label}>
+    <div class="hs-track" data-stagger data-stagger-gap="80">
+      <slot />
+    </div>
+  </div>
+
+  <div class="hs-controls">
+    <div class="hs-progress" aria-hidden="true">
+      <span class="hs-progress-bar" data-hs-bar></span>
+    </div>
+    <div class="hs-buttons">
+      <button class="hs-btn" data-hs-prev aria-label="Previous" type="button">←</button>
+      <button class="hs-btn" data-hs-next aria-label="Next" type="button">→</button>
+    </div>
+  </div>
+  <p class="hs-hint">swipe, drag or use ← →</p>
+</div>
+
+<style>
+  .hs {
+    position: relative;
+  }
+  .hs-viewport {
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    cursor: grab;
+    /* Must allow BOTH axes. `pan-y` alone tells the browser only
+       vertical panning is permitted here, which blocks finger-swiping
+       the rail entirely. Allowing both lets the browser route a
+       horizontal swipe to this element and a vertical one to the page. */
+    touch-action: pan-x pan-y;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+    outline: none;
+    padding-bottom: 0.5rem;
+  }
+  .hs-viewport::-webkit-scrollbar { display: none; }
+  .hs-viewport:focus-visible {
+    outline: 1px solid var(--accent-dim);
+    outline-offset: 4px;
+  }
+  .hs-viewport.is-dragging {
+    cursor: grabbing;
+    scroll-behavior: auto;
+    scroll-snap-type: none;
+  }
+  .hs-viewport.is-dragging :global(*) {
+    pointer-events: none;
+  }
+
+  .hs-track {
+    display: flex;
+    gap: 1.25rem;
+    width: max-content;
+    padding-right: 2rem;
+  }
+
+  .hs-controls {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-top: 1.75rem;
+  }
+  .hs-progress {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+    position: relative;
+  }
+  .hs-progress-bar {
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 20%;
+    background: var(--accent);
+    transition: transform 0.12s linear, width 0.2s ease;
+    transform-origin: left;
+  }
+  .hs-buttons {
+    display: flex;
+    gap: 0.5rem;
+  }
+  .hs-btn {
+    font-family: var(--font-mono);
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--fg);
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+  }
+  .hs-btn:hover:not(:disabled) {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  .hs-btn:disabled {
+    opacity: 0.25;
+    cursor: default;
+  }
+  .hs-hint {
+    color: var(--dim);
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin: 0.9rem 0 0;
+  }
+
+  @media (max-width: 860px) {
+    .hs-controls { margin-top: 1.25rem; }
+    .hs-hint { display: block; }
+  }
+</style>
+
+<script>
+  type Cleanup = () => void;
+
+  function initScroller(root: HTMLElement): Cleanup | void {
+    const vp = root.querySelector<HTMLElement>('[data-hs-viewport]');
+    const bar = root.querySelector<HTMLElement>('[data-hs-bar]');
+    const prev = root.querySelector<HTMLButtonElement>('[data-hs-prev]');
+    const next = root.querySelector<HTMLButtonElement>('[data-hs-next]');
+    if (!vp) return;
+
+    const step = () => {
+      const first = vp.querySelector<HTMLElement>('.hs-track > *');
+      // fall back to ~80% of the viewport when there are no children yet
+      return first ? first.getBoundingClientRect().width + 20 : vp.clientWidth * 0.8;
+    };
+
+    const update = () => {
+      const max = vp.scrollWidth - vp.clientWidth;
+      const ratio = max > 0 ? vp.scrollLeft / max : 0;
+      if (bar) {
+        const visible = vp.clientWidth / vp.scrollWidth;
+        bar.style.width = `${Math.max(visible * 100, 8)}%`;
+        const travel = (1 - Math.max(visible, 0.08)) * 100;
+        bar.style.transform = `translateX(${ratio * travel * (100 / Math.max(visible * 100, 8))}%)`;
+      }
+      if (prev) prev.disabled = vp.scrollLeft <= 2;
+      if (next) next.disabled = vp.scrollLeft >= max - 2;
+    };
+
+    vp.addEventListener('scroll', update, { passive: true });
+    prev?.addEventListener('click', () => vp.scrollBy({ left: -step(), behavior: 'smooth' }));
+    next?.addEventListener('click', () => vp.scrollBy({ left: step(), behavior: 'smooth' }));
+
+    vp.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') { e.preventDefault(); vp.scrollBy({ left: step(), behavior: 'smooth' }); }
+      if (e.key === 'ArrowLeft') { e.preventDefault(); vp.scrollBy({ left: -step(), behavior: 'smooth' }); }
+    });
+
+    // pointer drag
+    let down = false;
+    let startX = 0;
+    let startLeft = 0;
+    let moved = 0;
+
+    vp.addEventListener('pointerdown', (e) => {
+      if (e.pointerType === 'touch') return; // native touch scrolling is better
+      down = true;
+      moved = 0;
+      startX = e.clientX;
+      startLeft = vp.scrollLeft;
+      vp.setPointerCapture(e.pointerId);
+    });
+
+    vp.addEventListener('pointermove', (e) => {
+      if (!down) return;
+      const dx = e.clientX - startX;
+      if (Math.abs(dx) > 3 && !vp.classList.contains('is-dragging')) {
+        vp.classList.add('is-dragging');
+      }
+      moved = Math.abs(dx);
+      vp.scrollLeft = startLeft - dx;
+    });
+
+    const end = (e: PointerEvent) => {
+      if (!down) return;
+      down = false;
+      vp.classList.remove('is-dragging');
+      try { vp.releasePointerCapture(e.pointerId); } catch {}
+      // suppress the click that follows a real drag
+      if (moved > 4) {
+        const swallow = (ev: Event) => { ev.preventDefault(); ev.stopPropagation(); };
+        vp.addEventListener('click', swallow, { capture: true, once: true });
+        setTimeout(() => vp.removeEventListener('click', swallow, true), 0);
+      }
+    };
+    vp.addEventListener('pointerup', end);
+    vp.addEventListener('pointercancel', end);
+
+    const ro = new ResizeObserver(update);
+    ro.observe(vp);
+    update();
+  }
+
+  document.querySelectorAll<HTMLElement>('[data-hs]').forEach(initScroller);
+</script>

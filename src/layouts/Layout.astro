@@ -1,9 +1,15 @@
 ---
 interface Props {
   title?: string;
+  description?: string;
+  noindex?: boolean;
 }
 
-const { title = 'Michael Tawiah' } = Astro.props;
+const {
+  title = 'michael tawiah — performance marketer & dj',
+  description = 'technical digital performance marketing specialist investing £500k+/mth in ad spend. also a dj.',
+  noindex = false,
+} = Astro.props;
 ---
 
 <!doctype html>
@@ -12,28 +18,544 @@ const { title = 'Michael Tawiah' } = Astro.props;
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="generator" content={Astro.generator} />
+    <meta name="description" content={description} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+    <link
+      rel="preconnect"
+      href="https://fonts.googleapis.com"
+    />
+    <link
+      rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
     <title>{title}</title>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-6B0YVD7ZQ8"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-6B0YVD7ZQ8');
+    </script>
   </head>
   <body>
     <slot />
+
+    <script>
+      // ---- sticky section scrolling -------------------------------
+      // CSS mandatory snap alone has a halfway threshold: any gesture
+      // shorter than half a viewport rubber-bands back, so gentle
+      // trackpad swipes appear to do nothing and harder ones jump. We
+      // drive wheel input directly so one gesture always advances
+      // exactly one section. Touch keeps native scrolling (momentum +
+      // CSS snap already behave well there).
+      const sections = Array.from(document.querySelectorAll('.snap'));
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+      if (sections.length > 1) {
+        let index = 0;
+        let locked = false;
+        let unlockTimer = 0;
+
+        const active = () =>
+          !reduceMotion.matches &&
+          window.innerHeight >= 700 &&
+          window.matchMedia('(pointer: fine)').matches;
+
+        const currentIndex = () => {
+          const y = window.scrollY;
+          let best = 0;
+          let bestDist = Infinity;
+          sections.forEach((s, i) => {
+            const d = Math.abs(s.offsetTop - y);
+            if (d < bestDist) { bestDist = d; best = i; }
+          });
+          return best;
+        };
+
+        // A trackpad flick keeps emitting wheel events for up to ~1.5s
+        // after the finger lifts. A fixed unlock timer expires mid-tail
+        // and the leftover momentum advances again — that's the
+        // double/triple jump. So every event received while locked
+        // pushes the unlock further out: the lock only releases once the
+        // gesture has actually gone quiet.
+        const QUIET_MS = 450;
+        const relock = () => {
+          clearTimeout(unlockTimer);
+          unlockTimer = window.setTimeout(() => { locked = false; }, QUIET_MS);
+        };
+
+        const go = (i) => {
+          const clamped = Math.max(0, Math.min(sections.length - 1, i));
+          index = clamped;
+          locked = true;
+          sections[clamped].scrollIntoView({ behavior: 'smooth', block: 'start' });
+          relock();
+        };
+
+        // A section taller than the viewport must be readable: let the
+        // native scroll run until its far edge is reached before we
+        // hand over to the next section.
+        const canLeave = (el, dir) => {
+          if (el.scrollHeight <= window.innerHeight + 24) return true;
+          const r = el.getBoundingClientRect();
+          return dir > 0 ? r.bottom <= window.innerHeight + 4 : r.top >= -4;
+        };
+
+        window.addEventListener(
+          'wheel',
+          (e) => {
+            if (!active()) return;
+            // leave horizontal rails (and any nested scroller) alone
+            if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
+            if (e.target instanceof Element && e.target.closest('[data-hs-viewport]') && Math.abs(e.deltaX) > 2) return;
+            if (e.ctrlKey) return; // pinch-zoom
+
+            // swallow the momentum tail and keep the lock alive
+            if (locked) { e.preventDefault(); relock(); return; }
+            if (Math.abs(e.deltaY) < 4) return;
+
+            const dir = e.deltaY > 0 ? 1 : -1;
+            if (!canLeave(sections[index] || sections[currentIndex()], dir)) return;
+
+            index = currentIndex();
+            const next = index + dir;
+            if (next < 0 || next > sections.length - 1) return; // let footer / overscroll behave
+            e.preventDefault();
+            go(next);
+          },
+          { passive: false }
+        );
+
+        window.addEventListener('keydown', (e) => {
+          if (!active()) return;
+          const tag = (e.target as HTMLElement)?.tagName;
+          if (tag === 'INPUT' || tag === 'TEXTAREA') return;
+          index = currentIndex();
+          if (e.key === 'PageDown') { e.preventDefault(); go(index + 1); }
+          if (e.key === 'PageUp') { e.preventDefault(); go(index - 1); }
+          if (e.key === 'Home') { e.preventDefault(); go(0); }
+          if (e.key === 'End') { e.preventDefault(); go(sections.length - 1); }
+        });
+
+        // When JS owns wheel positioning, CSS mandatory snap is a second
+        // controller acting on the same scroll — it re-snaps after our
+        // animation and compounds the jump. Hand over cleanly.
+        const syncMode = () => {
+          document.documentElement.classList.toggle('js-scroll', active());
+        };
+        syncMode();
+        window.addEventListener('resize', syncMode);
+        reduceMotion.addEventListener?.('change', syncMode);
+
+        // keep our idea of position honest after anchor jumps / resize
+        window.addEventListener('resize', () => { index = currentIndex(); });
+        window.addEventListener('scroll', () => { if (!locked) index = currentIndex(); }, { passive: true });
+      }
+
+      // ---- decode-on-reveal ---------------------------------------
+      // Characters cycle through a glyph set before locking into place,
+      // left to right — a terminal decoding a transmission.
+      const GLYPHS = 'アイウエオカキクケコサシスセソタチツテトナニヌネノ0123456789<>/\\[]{}=+*#$%&';
+      const scrambleEls = document.querySelectorAll('[data-scramble]');
+
+      if (scrambleEls.length && !reduceMotion.matches) {
+        const decode = (el) => {
+          const final = el.textContent;
+          const chars = [...final];
+          // stagger: each character locks a little after the one before
+          const settleAt = chars.map((c, i) =>
+            c === ' ' ? 0 : 6 + i * 1.6 + Math.random() * 5
+          );
+          let frame = 0;
+          const total = Math.max(...settleAt) + 2;
+
+          const tick = () => {
+            el.textContent = chars
+              .map((c, i) =>
+                frame >= settleAt[i]
+                  ? c
+                  : GLYPHS[(Math.random() * GLYPHS.length) | 0]
+              )
+              .join('');
+            if (frame++ < total) requestAnimationFrame(tick);
+            else el.textContent = final;
+          };
+          requestAnimationFrame(tick);
+        };
+
+        const sio = new IntersectionObserver(
+          (entries) => {
+            for (const e of entries) {
+              if (e.isIntersecting) {
+                decode(e.target);
+                sio.unobserve(e.target);
+              }
+            }
+          },
+          { threshold: 0.4 }
+        );
+        scrambleEls.forEach((el) => sio.observe(el));
+      }
+
+      // ---- staggered materialise ----------------------------------
+      const staggerEls = document.querySelectorAll('[data-stagger], [data-stagger-pop]');
+      if (staggerEls.length) {
+        if (reduceMotion.matches) {
+          staggerEls.forEach((el) => el.classList.add('is-in'));
+        } else {
+          const gap = (el) => Number(el.dataset.staggerGap || 70);
+          const gio = new IntersectionObserver(
+            (entries) => {
+              for (const e of entries) {
+                if (!e.isIntersecting) continue;
+                const step = gap(e.target);
+                Array.from(e.target.children).forEach((child, i) => {
+                  child.style.transitionDelay = `${i * step}ms`;
+                });
+                e.target.classList.add('is-in');
+                gio.unobserve(e.target);
+              }
+            },
+            { threshold: 0.15 }
+          );
+          staggerEls.forEach((el) => gio.observe(el));
+        }
+      }
+
+      const els = document.querySelectorAll('.reveal');
+      if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches && els.length) {
+        const io = new IntersectionObserver(
+          (entries) => {
+            for (const e of entries) {
+              if (e.isIntersecting) {
+                e.target.classList.add('is-in');
+                io.unobserve(e.target);
+              }
+            }
+          },
+          // No negative bottom margin: sections are a full viewport tall,
+          // so anything in their lower band is already on screen and must
+          // still reveal (a -12% inset left footers/links stuck at opacity 0).
+          { rootMargin: '0px', threshold: 0.01 }
+        );
+        els.forEach((el) => io.observe(el));
+      } else {
+        els.forEach((el) => el.classList.add('is-in'));
+      }
+    </script>
   </body>
 </html>
 
 <style is:global>
   :root {
-    --bg: #0f172a;
-    --fg: #f8fafc;
-    --muted: #94a3b8;
-    --accent: #38bdf8;
+    --bg: #000000;
+    --fg: #e8e8e8;
+    --muted: #6b6b6b;
+    --dim: #3a3a3a;
+    --accent: #00ffc8;
+    /* deeper accent tone, used for numbering / indices */
+    --accent-deep: #00a882;
+    --accent-dim: rgba(0, 255, 200, 0.15);
+    --border: #1a1a1a;
+    --card: #0a0a0a;
+    --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   }
-  html, body {
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html,
+  body {
     margin: 0;
     padding: 0;
-    min-height: 100vh;
     background: var(--bg);
     color: var(--fg);
-    font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+    font-family: var(--font-mono);
+    font-size: 14px;
     line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
-  * { box-sizing: border-box; }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Full-viewport sticky snap: one section per gesture. Sections taller
+     than the viewport get their snap-align stripped at runtime (see the
+     guard script) so they can never trap the reader mid-content. */
+  .snap {
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
+
+  /* Snap only on precise pointers. On touch, content reflows taller than
+     the screen and mandatory snapping would fight the user's thumb. */
+  @media (min-height: 700px) and (pointer: fine) {
+    html {
+      scroll-snap-type: y mandatory;
+    }
+  }
+
+  /* set when a section can't fit — snapping off page-wide, never
+     per-section (a section without snap-align gets skipped entirely) */
+  html.no-snap {
+    scroll-snap-type: none;
+  }
+
+  /* JS is driving wheel positioning; CSS snap would double-apply */
+  html.js-scroll {
+    scroll-snap-type: none;
+  }
+
+  /* tighter vertical rhythm so a section actually fits one screen */
+  .snap.section {
+    padding-top: 6.5rem;
+    padding-bottom: 4rem;
+  }
+  .snap .section-label { margin-bottom: 1.75rem; }
+  .snap .section-title-lg { margin-bottom: 2.25rem; }
+
+  @media (max-height: 850px) {
+    .snap.section { padding-top: 5rem; padding-bottom: 2.5rem; }
+    .snap .section-label { margin-bottom: 1rem; }
+    .snap .section-title-lg {
+      margin-bottom: 1.25rem;
+      font-size: clamp(1.5rem, 3vw, 2rem);
+    }
+  }
+
+  /* Scan-sweep on hover: an accent line travels the top edge, like a row
+     being read. Animated via background-position rather than a
+     translated bar — a translated bar needs overflow:hidden on the card,
+     which clipped the label chips that deliberately overhang the top. */
+  .card,
+  .svc,
+  .case-card,
+  .cta-card,
+  .vert-panel,
+  .client-card,
+  .aads-tier {
+    position: relative;
+  }
+  .card::after,
+  .svc::after,
+  .case-card::after,
+  .cta-card::after,
+  .vert-panel::after,
+  .client-card::after,
+  .aads-tier::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background-image: linear-gradient(
+      90deg,
+      transparent,
+      var(--accent),
+      transparent
+    );
+    background-size: 55% 100%;
+    background-repeat: no-repeat;
+    background-position: -70% 0;
+    opacity: 0;
+    transition: background-position 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+      opacity 0.2s ease;
+    pointer-events: none;
+  }
+  .card:hover::after,
+  .svc:hover::after,
+  .case-card:hover::after,
+  .cta-card:hover::after,
+  .vert-panel:hover::after,
+  .client-card:hover::after,
+  .aads-tier:hover::after {
+    background-position: 170% 0;
+    opacity: 1;
+  }
+
+  /* terminal caret — mirrors the automatedAds sales page */
+  .caret {
+    display: inline-block;
+    width: 2px;
+    height: 1.2em;
+    background: var(--accent);
+    margin-left: 4px;
+    vertical-align: text-bottom;
+    animation: blink 1s step-end infinite;
+  }
+  @keyframes blink {
+    50% { opacity: 0; }
+  }
+
+  /* RGB-split glitch, used sparingly on the logo */
+  .glitch {
+    position: relative;
+  }
+  .glitch:hover {
+    animation: glitch-shift 0.32s steps(2, end) 2;
+    text-shadow: 1.5px 0 rgba(255, 0, 80, 0.75), -1.5px 0 rgba(0, 255, 200, 0.75);
+  }
+  @keyframes glitch-shift {
+    0%, 100% { transform: translate(0, 0); }
+    25% { transform: translate(-1px, 1px); }
+    50% { transform: translate(1px, -1px); }
+    75% { transform: translate(-1px, 0); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .caret { animation: none; }
+    .glitch:hover { animation: none; text-shadow: none; }
+    .card::after,
+    .svc::after,
+    .case-card::after,
+    .cta-card::after,
+    .vert-panel::after,
+    .client-card::after,
+    .aads-tier::after { display: none; }
+  }
+
+  /* reveal-on-scroll */
+  .reveal {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .reveal.is-in {
+    opacity: 1;
+    transform: none;
+  }
+  .reveal-d1 { transition-delay: 0.08s; }
+  .reveal-d2 { transition-delay: 0.16s; }
+  .reveal-d3 { transition-delay: 0.24s; }
+
+  /* Children materialise one after another: they resolve out of blur
+     while sliding up, so a row of cards assembles rather than appearing
+     all at once. Delays are assigned per child at runtime. */
+  [data-stagger] > * {
+    opacity: 0;
+    transform: translateY(18px) scale(0.985);
+    filter: blur(7px);
+    transition: opacity 0.55s ease, transform 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+      filter 0.55s ease;
+  }
+  [data-stagger].is-in > * {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+
+  /* small marks pop rather than slide */
+  [data-stagger-pop] > * {
+    opacity: 0;
+    transform: scale(0.6);
+    transition: opacity 0.35s ease, transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  [data-stagger-pop].is-in > * {
+    opacity: 1;
+    transform: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    [data-stagger] > *,
+    [data-stagger-pop] > * {
+      opacity: 1;
+      transform: none;
+      filter: none;
+      transition: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-snap-type: none; scroll-behavior: auto; }
+    .reveal { opacity: 1; transform: none; transition: none; }
+  }
+
+  body {
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  a:hover {
+    color: var(--accent);
+  }
+
+  ::selection {
+    background: var(--accent);
+    color: #000;
+  }
+
+  /* shared section primitives */
+  .section {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 6rem 2rem;
+    border-top: 1px solid var(--border);
+  }
+  .section:first-of-type {
+    border-top: none;
+  }
+  .section-label {
+    color: var(--accent);
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    margin-bottom: 3rem;
+  }
+  .section-title {
+    font-family: var(--font-mono);
+    font-weight: 500;
+    font-size: clamp(1.25rem, 3vw, 1.75rem);
+    margin: 0 0 1.5rem;
+    letter-spacing: -0.01em;
+  }
+  .section-title-lg {
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    margin-bottom: 3rem;
+  }
+  .muted {
+    color: var(--muted);
+  }
+  .hl {
+    color: var(--fg);
+    font-weight: 500;
+  }
+  .inline-link {
+    color: var(--accent);
+    border-bottom: 1px solid var(--accent-dim);
+    transition: border-color 0.2s ease;
+  }
+  .inline-link:hover {
+    border-bottom-color: var(--accent);
+    color: var(--accent);
+  }
+
+  @media (max-width: 860px) {
+    .section { padding: 4rem 1.25rem; }
+  }
 </style>

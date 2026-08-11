@@ -1,0 +1,74 @@
+---
+interface Tier {
+  spend: string;
+  retainer: string;
+  highlight?: boolean;
+}
+interface Props {
+  tiers: Tier[];
+}
+const { tiers } = Astro.props;
+---
+
+<div class="pricing-table">
+  <div class="pricing-row pricing-head">
+    <div>ad spend / mth</div>
+    <div>retainer / mth</div>
+  </div>
+  {tiers.map((t) => (
+    <div class={`pricing-row ${t.highlight ? 'pricing-row-highlight' : ''}`}>
+      <div class="pricing-spend">{t.spend}</div>
+      <div class="pricing-retainer">{t.retainer}</div>
+    </div>
+  ))}
+</div>
+
+<style>
+  .pricing-table {
+    border: 1px solid var(--border);
+    background: var(--card);
+  }
+  .pricing-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    padding: 1.25rem 1.75rem;
+    border-bottom: 1px solid var(--border);
+    align-items: center;
+    font-size: 0.95rem;
+  }
+  .pricing-row:last-child { border-bottom: none; }
+  .pricing-head {
+    color: var(--accent);
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    background: rgba(255, 255, 255, 0.015);
+  }
+  .pricing-spend {
+    color: var(--fg);
+  }
+  .pricing-retainer {
+    color: var(--accent);
+    font-weight: 500;
+  }
+  .pricing-row-highlight {
+    background: var(--accent-dim);
+  }
+  @media (max-width: 600px) {
+    .pricing-row {
+      grid-template-columns: 1fr;
+      gap: 0.25rem;
+      padding: 1rem 1.25rem;
+    }
+    .pricing-head {
+      display: none;
+    }
+    .pricing-spend {
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+  }
+</style>

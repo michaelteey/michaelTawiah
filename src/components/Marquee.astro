@@ -1,0 +1,108 @@
+---
+const highlights = [
+  '10+ years experience',
+  'budgets > £300k/mth',
+  'proprietary software driving automation & growth',
+  'ecommerce / apparel / lead gen',
+  'ex-head of paid digital',
+  'meta · google · tiktok',
+  'blended cac, roas & incrementality',
+  'six-figure monthly budgets',
+];
+
+// rendered twice so the loop is seamless
+const track = [...highlights, ...highlights];
+---
+
+<div class="marquee" aria-label="Highlights">
+  <div class="marquee-track">
+    {track.map((h, i) => (
+      <span class="marquee-item" aria-hidden={i >= highlights.length}>
+        <span class="marquee-star">✳</span>
+        <span class="marquee-text">{h}</span>
+      </span>
+    ))}
+  </div>
+</div>
+
+<style>
+  .marquee {
+    position: relative;
+    overflow: hidden;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    background: var(--card);
+    padding: 1.1rem 0;
+    /* fade the edges so items enter/exit softly */
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent,
+      #000 8%,
+      #000 92%,
+      transparent
+    );
+    mask-image: linear-gradient(
+      to right,
+      transparent,
+      #000 8%,
+      #000 92%,
+      transparent
+    );
+  }
+
+  .marquee-track {
+    display: flex;
+    width: max-content;
+    animation: marquee-scroll 48s linear infinite;
+  }
+
+  .marquee:hover .marquee-track {
+    animation-play-state: paused;
+  }
+
+  .marquee-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding-right: 1.5rem;
+    white-space: nowrap;
+    font-size: 0.85rem;
+    letter-spacing: 0.06em;
+  }
+
+  .marquee-star {
+    color: var(--accent);
+    font-size: 0.7rem;
+  }
+
+  .marquee-text {
+    color: #cfcfcf;
+  }
+
+  /* the track is 2x the content, so -50% is exactly one full set */
+  @keyframes marquee-scroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .marquee-track {
+      animation: none;
+      flex-wrap: wrap;
+      width: 100%;
+      justify-content: center;
+      gap: 0.5rem 0;
+      padding: 0 1.25rem;
+    }
+  }
+
+  @media (max-width: 860px) {
+    .marquee { padding: 0.9rem 0; }
+    .marquee-item {
+      font-size: 0.75rem;
+      gap: 1.1rem;
+      padding-right: 1.1rem;
+    }
+    .marquee-track { animation-duration: 36s; }
+  }
+</style>

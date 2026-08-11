@@ -1,0 +1,109 @@
+---
+const layers = [
+  {
+    n: '01',
+    k: 'creative, component by component',
+    d: "not just which ad wins — which parts of it do. hook, format, talent, angle, length, first three seconds. so the next brief is informed rather than guessed.",
+  },
+  {
+    n: '02',
+    k: 'funnel depth, not just platform reporting',
+    d: "what's working top-line versus what's actually converting further down. platform-attributed roas and real contribution are different numbers, and i report both.",
+  },
+  {
+    n: '03',
+    k: 'revenue structure',
+    d: 'which products, price points and cohorts the revenue is really coming from — so budget follows margin, not just volume.',
+  },
+  {
+    n: '04',
+    k: 'audience & placement splits',
+    d: 'age, gender, platform, placement. the aggregate cpa hides the pockets that are carrying it and the ones bleeding it.',
+  },
+  {
+    n: '05',
+    k: 'speed of iteration',
+    d: 'launch fast, kill fast, double and triple down faster. the edge is usually cycle time, not cleverness.',
+  },
+];
+---
+
+<div class="bd">
+  <p class="bd-lead">
+    i'm a <span class="hl">technical</span> performance marketer, not a general
+    one. the advantage comes from resolution — seeing variables most teams
+    never break out, and acting on them before anyone else does.
+  </p>
+
+  <ol class="bd-list" data-stagger data-stagger-gap="70">
+    {layers.map((l) => (
+      <li class="bd-item">
+        <span class="bd-n">{l.n}</span>
+        <div class="bd-copy">
+          <div class="bd-k">{l.k}</div>
+          <p class="bd-d">{l.d}</p>
+        </div>
+      </li>
+    ))}
+  </ol>
+
+  <p class="bd-foot">
+    most of this runs through
+    <a href="https://www.automated-ads.com" class="inline-link" target="_blank" rel="noopener noreferrer">automatedAds</a>
+    — the tooling exists because the analysis came first.
+  </p>
+</div>
+
+<style>
+  .bd-lead {
+    color: #b8b8b8;
+    font-size: 0.95rem;
+    line-height: 1.75;
+    max-width: 62ch;
+    margin: 0 0 2rem;
+  }
+  .bd-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem 2.5rem;
+  }
+  .bd-item {
+    display: flex;
+    gap: 1rem;
+    border-top: 1px dashed var(--border);
+    padding-top: 0.9rem;
+  }
+  .bd-n {
+    color: var(--accent-deep);
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    padding-top: 0.2rem;
+    flex-shrink: 0;
+  }
+  .bd-k {
+    color: var(--fg);
+    font-size: 0.85rem;
+    margin-bottom: 0.25rem;
+  }
+  .bd-d {
+    color: var(--muted);
+    font-size: 0.78rem;
+    line-height: 1.6;
+    margin: 0;
+  }
+  .bd-foot {
+    color: var(--muted);
+    font-size: 0.8rem;
+    margin: 1.75rem 0 0;
+  }
+
+  @media (max-width: 860px) {
+    .bd-list { grid-template-columns: 1fr; gap: 0.75rem; }
+    .bd-lead { font-size: 0.88rem; margin-bottom: 1.25rem; }
+    .bd-item:nth-child(n + 5) { display: none; }
+    .bd-foot { margin-top: 1.25rem; }
+  }
+</style>

@@ -1,0 +1,175 @@
+---
+const modules = [
+  {
+    k: 'campaign trends',
+    d: 'spend, conversions and cpa over time — weekly and monthly, live from the api.',
+  },
+  {
+    k: 'creative performance',
+    d: 'every ad ranked by cpa score, with scatter plots and period-over-period deltas.',
+  },
+  {
+    k: 'breakdowns',
+    d: 'age, gender, platform and placement — where the budget actually performs.',
+  },
+  {
+    k: 'ad manager',
+    d: 'cpa scoring, pause recommendations and one-click execution across campaigns.',
+  },
+];
+---
+
+<div class="aads">
+  <div class="aads-top">
+    <div class="aads-intro">
+      <div class="aads-mark">automatedAds<span class="aads-dot">.</span></div>
+      <p class="aads-tagline">sharper insights. faster execution.<span class="caret"></span></p>
+      <p class="aads-body">
+        i built it. a decade of doing this by hand turned into software —
+        pulling live from meta, tiktok and shopify so the analysis i used to
+        rebuild every week is just there, every day.
+      </p>
+      <p class="aads-body">
+        it runs underneath everything else on this page. the granularity in my
+        reporting isn't manual heroics — it's tooling.
+      </p>
+      <a
+        href="https://www.automated-ads.com"
+        class="aads-cta"
+        target="_blank"
+        rel="noopener noreferrer"
+      >go to automatedAds ↗</a>
+    </div>
+
+    <ul class="aads-modules" data-stagger data-stagger-gap="80">
+      {modules.map((m) => (
+        <li class="aads-module">
+          <span class="aads-bullet"></span>
+          <div>
+            <div class="aads-k">{m.k}</div>
+            <p class="aads-d">{m.d}</p>
+          </div>
+        </li>
+      ))}
+    </ul>
+  </div>
+
+  <div class="aads-tiers" data-stagger data-stagger-gap="100">
+    <div class="aads-tier">
+      <span class="aads-tier-k">free access</span>
+      <span class="aads-tier-d">connect a meta ad account for read-only campaign trends, creative performance and breakdowns.</span>
+    </div>
+    <div class="aads-tier aads-tier-alt">
+      <span class="aads-tier-k">bespoke access</span>
+      <span class="aads-tier-d">ad launching, cpa management, creative audits, consulting and custom builds.</span>
+    </div>
+  </div>
+</div>
+
+<style>
+  .aads-top {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+  .aads-mark {
+    font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    line-height: 1;
+  }
+  .aads-dot { color: var(--accent); }
+  .aads-tagline {
+    color: var(--accent);
+    margin: 0.75rem 0 1.5rem;
+    font-size: 0.9rem;
+  }
+  .aads-body {
+    color: #b8b8b8;
+    font-size: 0.9rem;
+    line-height: 1.75;
+    margin: 0 0 1rem;
+    max-width: 46ch;
+  }
+  .aads-cta {
+    display: inline-block;
+    margin-top: 0.75rem;
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    padding: 0.7rem 1.1rem;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+  .aads-cta:hover { background: var(--accent); color: #000; }
+
+  .aads-modules {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 1.1rem;
+  }
+  .aads-module {
+    display: flex;
+    gap: 0.9rem;
+    border-left: 1px solid var(--border);
+    padding-left: 1.1rem;
+  }
+  .aads-bullet {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    flex-shrink: 0;
+    margin-top: 0.5rem;
+  }
+  .aads-k {
+    color: var(--fg);
+    font-size: 0.85rem;
+    margin-bottom: 0.15rem;
+  }
+  .aads-d {
+    color: var(--muted);
+    font-size: 0.78rem;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .aads-tiers {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 2.5rem;
+  }
+  .aads-tier {
+    border: 1px solid var(--border);
+    background: var(--card);
+    padding: 1rem 1.2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+  .aads-tier-alt { border-color: var(--accent-dim); }
+  .aads-tier-k {
+    color: var(--accent);
+    font-size: 0.62rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+  }
+  .aads-tier-d {
+    color: var(--muted);
+    font-size: 0.78rem;
+    line-height: 1.6;
+  }
+
+  @media (max-width: 860px) {
+    .aads-top { grid-template-columns: 1fr; gap: 1.75rem; }
+    .aads-body { max-width: none; }
+    .aads-body:nth-of-type(2) { display: none; }
+    .aads-modules { gap: 0.75rem; }
+    .aads-tiers { grid-template-columns: 1fr; gap: 0.6rem; margin-top: 1.5rem; }
+  }
+</style>
