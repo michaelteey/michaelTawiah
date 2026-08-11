@@ -41,7 +41,7 @@ const modules = [
       >go to automatedAds ↗</a>
     </div>
 
-    <ul class="aads-modules">
+    <ul class="aads-modules" data-stagger data-stagger-gap="80">
       {modules.map((m) => (
         <li class="aads-module">
           <span class="aads-bullet"></span>
@@ -54,7 +54,7 @@ const modules = [
     </ul>
   </div>
 
-  <div class="aads-tiers">
+  <div class="aads-tiers" data-stagger data-stagger-gap="100">
     <div class="aads-tier">
       <span class="aads-tier-k">free access</span>
       <span class="aads-tier-d">connect a meta ad account for read-only campaign trends, creative performance and breakdowns.</span>

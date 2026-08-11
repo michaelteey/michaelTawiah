@@ -18,7 +18,7 @@ const items = [
 ];
 ---
 
-<div class="acc">
+<div class="acc" data-stagger data-stagger-gap="100">
   {items.map((it, i) => (
     <div class="acc-item" data-acc-item>
       <button class="acc-head" data-acc-btn type="button" aria-expanded={i === 0 ? 'true' : 'false'}>

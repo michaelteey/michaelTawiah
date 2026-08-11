@@ -43,7 +43,7 @@ const sectors = Object.keys(grouped).sort();
           {sectors.map((sector) => (
             <div class="sector-group">
               <div class="sector-label">{sector}</div>
-              <div class="client-grid">
+              <div class="client-grid" data-stagger data-stagger-gap="55">
                 {grouped[sector].map((c) => (
                   <article class="client-card">
                     {c.url ? (

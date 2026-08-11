@@ -207,6 +207,31 @@ const {
         scrambleEls.forEach((el) => sio.observe(el));
       }
 
+      // ---- staggered materialise ----------------------------------
+      const staggerEls = document.querySelectorAll('[data-stagger], [data-stagger-pop]');
+      if (staggerEls.length) {
+        if (reduceMotion.matches) {
+          staggerEls.forEach((el) => el.classList.add('is-in'));
+        } else {
+          const gap = (el) => Number(el.dataset.staggerGap || 70);
+          const gio = new IntersectionObserver(
+            (entries) => {
+              for (const e of entries) {
+                if (!e.isIntersecting) continue;
+                const step = gap(e.target);
+                Array.from(e.target.children).forEach((child, i) => {
+                  child.style.transitionDelay = `${i * step}ms`;
+                });
+                e.target.classList.add('is-in');
+                gio.unobserve(e.target);
+              }
+            },
+            { threshold: 0.15 }
+          );
+          staggerEls.forEach((el) => gio.observe(el));
+        }
+      }
+
       const els = document.querySelectorAll('.reveal');
       if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches && els.length) {
         const io = new IntersectionObserver(
@@ -317,8 +342,10 @@ const {
     }
   }
 
-  /* Cards get a scan-sweep on hover: a thin accent line travels the top
-     edge, like a row being read. Cheap (transform only) and thematic. */
+  /* Scan-sweep on hover: an accent line travels the top edge, like a row
+     being read. Animated via background-position rather than a
+     translated bar — a translated bar needs overflow:hidden on the card,
+     which clipped the label chips that deliberately overhang the top. */
   .card,
   .svc,
   .case-card,
@@ -327,7 +354,6 @@ const {
   .client-card,
   .aads-tier {
     position: relative;
-    overflow: hidden;
   }
   .card::after,
   .svc::after,
@@ -342,14 +368,18 @@ const {
     left: 0;
     right: 0;
     height: 1px;
-    background: linear-gradient(
+    background-image: linear-gradient(
       90deg,
       transparent,
       var(--accent),
       transparent
     );
-    transform: translateX(-100%);
-    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    background-size: 55% 100%;
+    background-repeat: no-repeat;
+    background-position: -70% 0;
+    opacity: 0;
+    transition: background-position 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+      opacity 0.2s ease;
     pointer-events: none;
   }
   .card:hover::after,
@@ -359,7 +389,8 @@ const {
   .vert-panel:hover::after,
   .client-card:hover::after,
   .aads-tier:hover::after {
-    transform: translateX(100%);
+    background-position: 170% 0;
+    opacity: 1;
   }
 
   /* terminal caret — mirrors the automatedAds sales page */
@@ -417,6 +448,43 @@ const {
   .reveal-d1 { transition-delay: 0.08s; }
   .reveal-d2 { transition-delay: 0.16s; }
   .reveal-d3 { transition-delay: 0.24s; }
+
+  /* Children materialise one after another: they resolve out of blur
+     while sliding up, so a row of cards assembles rather than appearing
+     all at once. Delays are assigned per child at runtime. */
+  [data-stagger] > * {
+    opacity: 0;
+    transform: translateY(18px) scale(0.985);
+    filter: blur(7px);
+    transition: opacity 0.55s ease, transform 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+      filter 0.55s ease;
+  }
+  [data-stagger].is-in > * {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+
+  /* small marks pop rather than slide */
+  [data-stagger-pop] > * {
+    opacity: 0;
+    transform: scale(0.6);
+    transition: opacity 0.35s ease, transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  [data-stagger-pop].is-in > * {
+    opacity: 1;
+    transform: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    [data-stagger] > *,
+    [data-stagger-pop] > * {
+      opacity: 1;
+      transform: none;
+      filter: none;
+      transition: none;
+    }
+  }
 
   @media (prefers-reduced-motion: reduce) {
     html { scroll-snap-type: none; scroll-behavior: auto; }

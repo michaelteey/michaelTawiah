@@ -9,7 +9,7 @@ const { id, label = 'horizontal content' } = Astro.props;
 
 <div class="hs" data-hs={id}>
   <div class="hs-viewport" data-hs-viewport tabindex="0" role="region" aria-label={label}>
-    <div class="hs-track">
+    <div class="hs-track" data-stagger data-stagger-gap="80">
       <slot />
     </div>
   </div>
